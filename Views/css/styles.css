@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat", serif;
+}
+
+.navbar {
+    background-color: #2f354b !important;
+}
+
+.navbar-brand {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 30px;
+    text-align: center;
+    color: #ff8802;
+    transition: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.navbar-brand span {
+    color: #fff8e9;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.navbar-brand:hover {
+    color: #ff8802;
+}
+
+.navbar-nav .nav-link {
+    transition: color 0.3s ease, background-color 0.3s ease;
+    font-size: 15px;
+    margin-right: 30px;
+    color: #fff8e9;
+    padding-left: 10px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ff8802;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    color: #ff8802;
+}
+
+footer {
+    background-color: #2f354b;
+    padding: 40px 0;
+    margin-top: auto;
+    color: #fff8e9;
+}
+
+footer h5 {
+    color: #ff8802;
+    font-size: 16px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+footer .footer-section {
+    margin-bottom: 20px;
+}
+
+footer .footer-section h5 {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li {
+    margin-bottom: 10px;
+}
+
+footer .footer-section ul li a {
+    text-decoration: none;
+    color: #fff8e9;
+    font-size: 14px;
+}
+
+footer .footer-section ul li a:hover {
+    color: #ff8802;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    padding-top: 10px;
+    text-align: center;
+    color: #fff8e9;
+    font-size: 14px;
+}
