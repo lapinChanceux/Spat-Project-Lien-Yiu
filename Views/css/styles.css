@@ -129,7 +129,6 @@ footer .footer-section ul li a:hover {
     margin-bottom: 20px;
 }
 
-
 .about-section {
     background-repeat: no-repeat;
     background-position: top right;
@@ -181,7 +180,6 @@ footer .footer-section ul li a:hover {
     font-weight: bolder !important;
     color: #fff8e9;
     padding-top: 15%;
-
 }
 
 .appointment-container p {
@@ -195,7 +193,6 @@ footer .footer-section ul li a:hover {
     margin: 0;
     padding: 0;
 }
-
 
 .custom-button {
     border-radius: 20px;
@@ -263,7 +260,6 @@ footer .footer-section ul li a:hover {
     border-radius: 10px !important;
 }
 
-
 @keyframes appear {
     from {
         opacity: 0;
@@ -280,7 +276,6 @@ footer .footer-section ul li a:hover {
     animation-timeline: view();
     animation-range: entry 0;
 }
-
 
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
@@ -344,7 +339,6 @@ footer .footer-section ul li a:hover {
         font-size: 12px;
         padding: 2px 20px;
     }
-
 }
 
 /* Media Query: Mobile Devices */
@@ -425,10 +419,8 @@ footer .footer-section ul li a:hover {
         font-size: 12px !important;
     }
 
-
     .custom-button {
         font-size: 10px;
         padding: 2px 20px;
     }
-
 }
