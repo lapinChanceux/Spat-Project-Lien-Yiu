@@ -102,3 +102,333 @@ footer .footer-section ul li a:hover {
     color: #fff8e9;
     font-size: 14px;
 }
+
+.home-section {
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+}
+
+.home-container {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 12%;
+    text-align: left;
+}
+
+.home-container h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #fff8e9;
+    margin-bottom: 15px;
+}
+
+.home-container p {
+    color: #fff8e9;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+
+.about-section {
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-size: cover;
+}
+
+.about-container {
+    padding-top: 9%;
+    padding-bottom: 9%;
+    padding-left: 8%;
+    padding-right: 8%;
+    text-align: center;
+}
+
+.about-container h1 {
+    font-size: 40px;
+    font-weight: bolder !important;
+    color: #fff8e9;
+    margin-bottom: 30px;
+}
+
+.about-container p {
+    color: black;
+    font-size: 15px;
+}
+
+.appointment-section {
+    background-color: #151a26;
+}
+
+.appointment-container {
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: cover;
+    padding-left: 8% !important;
+    height: 60vh;
+}
+
+.appointment-container-1 {
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    padding-left: 8% !important;
+    height: 60vh;
+}
+
+.appointment-container h1 {
+    font-size: 40px;
+    font-weight: bolder !important;
+    color: #fff8e9;
+    padding-top: 15%;
+
+}
+
+.appointment-container p {
+    color: #fff8e9;
+    font-size: 15px;
+}
+
+.map-section {
+    width: auto;
+    height: 60vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+.custom-button {
+    border-radius: 20px;
+    padding: 5px 40px;
+    background: linear-gradient(135deg, rgba(255, 136, 2, 0.5), rgba(255, 136, 2, 0.8));
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-button:hover {
+    background: linear-gradient(135deg, rgba(255, 136, 2, 1), rgba(255, 102, 0, 1));
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(255, 136, 2, 0.4);
+}
+
+.custom-button:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.services-section {
+    text-align: center;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+.services-section h1 {
+    font-size: 40px;
+    font-weight: bolder !important;
+    color: #ff8802;
+    padding-top: 6%;
+}
+
+.services-section .card {
+    margin: 30px 0;
+    max-width: 350px;
+    text-align: center;
+    border: none;
+    background-color: transparent;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 20%;
+}
+
+.services-section .card-title {
+    font-size: 18px;
+    color: #ff8802;
+    font-weight: bold;
+}
+
+.services-section .card-text {
+    font-size: 15px;
+    color: black;
+}
+
+.services-section .card img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px !important;
+}
+
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        scale: 0.5;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+.appointment-container h1 {
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0;
+}
+
+
+/* Media Query: Desktops */
+@media screen and (min-width: 769px) {
+    .home-container {
+        padding-top: 10%;
+    }
+}
+
+/* Media Query: Tablets */
+@media screen and (min-width: 577px) and (max-width: 768px) {
+    .home-section {
+        margin-top: 60px;
+    }
+
+    .home-container {
+        padding-left: 10%;
+    }
+
+    .about-container {
+        padding-top: 3%;
+        padding-bottom: 3%;
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+
+    .appointment-container,
+    .appointment-container-1 {
+        height: 45vh;
+    }
+
+    .home-container h1 {
+        font-size: 30px;
+    }
+
+    .about-container h1 {
+        font-size: 30px;
+    }
+
+    .appointment-container h1 {
+        font-size: 30px;
+        padding-top: 8%;
+    }
+
+    .home-container p {
+        font-size: 14px;
+    }
+
+    .about-container p {
+        font-size: 14px;
+    }
+
+    .appointment-container p {
+        font-size: 14px;
+    }
+
+    .map-section {
+        height: 50vh;
+    }
+
+    .custom-button {
+        font-size: 12px;
+        padding: 2px 20px;
+    }
+
+}
+
+/* Media Query: Mobile Devices */
+@media screen and (max-width: 576px) {
+    .home-section {
+        margin-top: 50px;
+    }
+
+    .home-container {
+        padding-left: 5%;
+    }
+
+    .about-container {
+        padding-top: 0%;
+        padding-bottom: 0%;
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+
+    .appointment-container,
+    .appointment-container-1 {
+        height: 35vh;
+    }
+
+    .services-section .card {
+        max-width: 300px;
+        margin-bottom: 3%;
+    }
+
+    .home-container h1 {
+        font-size: 25px;
+    }
+
+    .about-container h1 {
+        font-size: 25px;
+    }
+
+    .appointment-container h1 {
+        font-size: 25px;
+        padding-top: 4%;
+    }
+
+    .services-section h1 {
+        font-size: 25px;
+        padding-top: 2%;
+    }
+
+    .services-section .card-title {
+        font-size: 15px;
+    }
+
+    .services-section .card-text {
+        font-size: 12px;
+    }
+
+    .home-container p {
+        font-size: 12px;
+    }
+
+    .about-container p {
+        font-size: 12px;
+    }
+
+    .appointment-container p {
+        font-size: 12px;
+    }
+
+    .map-section {
+        height: 45vh;
+    }
+
+    .footer-section h5 {
+        font-size: 15px;
+    }
+
+    .footer-section p,
+    .footer-section ul li a {
+        font-size: 12px !important;
+    }
+
+
+    .custom-button {
+        font-size: 10px;
+        padding: 2px 20px;
+    }
+
+}
