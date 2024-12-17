@@ -15,3 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+function redirectToSection() {
+    window.location.href = 'index.php';
+}
+

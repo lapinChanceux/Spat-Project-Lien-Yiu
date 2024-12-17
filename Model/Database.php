@@ -29,7 +29,7 @@ class Database {
     private function __construct() {
         try {
             // Create a new PDO connection to the SQLite database
-            $this->_dbHandle = new PDO("sqlite:../leanyiuDB.sqlite");
+            $this->_dbHandle = new PDO("sqlite:lienyiuDB.sqlite");
         } catch (PDOException $e) {
             // Handle any connection errors
             echo "Database connection failed: " . $e->getMessage();

@@ -4,7 +4,8 @@
             <!-- Brand Section -->
             <div class="col-12 col-sm-6 col-md-3 col-lg-4 footer-section">
                 <h5>About Us</h5>
-                <p>Lien Yiu Battery & Tyre Sdn Bhd has been serving customers since 1978 with quality services and reliable products.</p>
+                <p>Lien Yiu Battery & Tyre Sdn Bhd has been serving customers since 1978 with quality services and
+                    reliable products.</p>
             </div>
             <!-- Menu Section -->
             <div class="col-4 col-sm-6 col-md-3 col-lg-2 footer-section">
@@ -34,9 +35,44 @@
         </div>
     </div>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const carBrandSelect = document.getElementById('carBrand');
+        const carModelSelect = document.getElementById('carModel');
 
+        carBrandSelect.addEventListener('change', function () {
+            const brandId = this.value;
+
+            // Clear the car model dropdown
+            carModelSelect.innerHTML = '<option selected disabled>Select Car Model</option>';
+
+            // Get models for the selected brand
+            const models = carData.models[brandId] || [];
+
+            // Populate the car model dropdown
+            models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model.model_id;
+                option.textContent = model.model_name;
+                carModelSelect.appendChild(option);
+            });
+        });
+    });
+
+    function showBookingModal() {
+        var bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+        bookingModal.show();
+    }
+</script>
+<script>
+    const carData = {
+        brands: <?= json_encode($carBrands) ?>,
+        models: <?= json_encode($allCarModels) ?>
+    };
+</script>
 <script src="Views/js/script.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 </html>
