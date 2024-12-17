@@ -9,7 +9,10 @@ include 'template/header.phtml';
             <p>With decades of expertise, we offer premium<br> Continental
                 tyres and reliable repairs to keep<br> your journey safe and
                 smooth.</p>
-            <button type="button" class="btn btn-primary btn-sm custom-button">Book Now</button>
+            <button type="button" class="btn btn-primary btn-sm custom-button me-3 mt-4" data-bs-toggle="modal"
+                    data-bs-target="#bookAppointmentModal">Book Now
+            </button>
+
         </div>
     </section>
 
@@ -65,7 +68,7 @@ include 'template/header.phtml';
         </div>
     </section>
 
-    <section id="#services-section" class="container-fluid services-section"
+    <section id="services-section" class="container-fluid services-section"
              style="background-image: url('/Views/images/card-background.png');">
         <div class="container-fluid py-5 d-flex align-items-center justify-content-center">
             <div class="text-center">
@@ -121,25 +124,28 @@ include 'template/header.phtml';
     </section>
 
     <!-- Modal: Book Appointment -->
-    <div class="modal fade" id="bookAppointmentModal" tabindex="-1" aria-labelledby="bookAppointmentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="bookAppointmentModal" tabindex="-1" aria-labelledby="bookAppointmentModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bookAppointmentModalLabel">Book Appointment</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="bookAppointmentModalLabel">Book Appointment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="index.php?page=home" method="POST" id="appointmentForm">
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="fullName" class="form-label me-3 field-custom-width">Name</label>
+                            <input type="text" class="form-control" id="fullName" name="fullName"
+                                   placeholder="Enter your name" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="carNumber" class="form-label">Car Number</label>
-                            <input type="text" class="form-control" id="carNumber" name="carNumber" placeholder="Enter your car number" required>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="carNumber" class="form-label me-3 field-custom-width">Car Number</label>
+                            <input type="text" class="form-control" id="carNumber" name="carNumber"
+                                   placeholder="Enter your car number" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="carBrand" class="form-label">Car Brand</label>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="carBrand" class="form-label me-3 field-custom-width">Car Brand</label>
                             <select class="form-select" id="carBrand" name="carBrand" required>
                                 <option selected disabled>Select Car Brand</option>
                                 <?php foreach ($carBrands as $brand): ?>
@@ -149,33 +155,41 @@ include 'template/header.phtml';
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="carModel" class="form-label">Car Model</label>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="carModel" class="form-label me-3 field-custom-width">Car Model</label>
                             <select class="form-select" id="carModel" name="carModel" required>
                                 <option selected disabled>Select Car Model</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="appointmentDate" class="form-label">Date</label>
-                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate" required>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="appointmentDate" class="form-label me-3 field-custom-width">Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" name="appointmentDate"
+                                   required>
                         </div>
-                        <div class="mb-3">
-                            <label for="appointmentTime" class="form-label">Time</label>
-                            <input type="time" class="form-control" id="appointmentTime" name="appointmentTime" required>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="appointmentTime" class="form-label me-3 field-custom-width">Time</label>
+                            <input type="time" class="form-control" id="appointmentTime" name="appointmentTime"
+                                   required>
                         </div>
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="phoneNumber" class="form-label me-3 field-custom-width">Phone Number</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                   placeholder="Enter your phone number" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email (Optional)</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="email" class="form-label me-3 field-custom-width">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="Enter your email">
                         </div>
-                        <div class="mb-3">
-                            <label for="remark" class="form-label">Remark (Optional)</label>
-                            <textarea class="form-control" id="remark" name="remark" rows="3" placeholder="Enter any remarks"></textarea>
+                        <div class="mb-3 mt-3">
+                            <label for="remark" class="form-label mb-2">Remark (Optional)</label>
+                            <textarea class="form-control" id="remark" name="remark" rows="3"
+                                      placeholder="e.g., change engine oil, replace tires, check battery."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-sm custom-button mt-3 mb-3">Confirm
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -187,32 +201,37 @@ include 'template/header.phtml';
          aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="checkAppointmentModalLabel">Check My Appointment</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="checkAppointmentModalLabel">Check My Appointment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
-                            <label for="checkFullName" class="form-label">Full Name</label>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="checkFullName" class="form-label field-custom-width">Full Name</label>
                             <input type="text" class="form-control" id="checkFullName"
                                    placeholder="Enter your full name" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="checkCarNumber" class="form-label">Car Number</label>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="checkCarNumber" class="form-label field-custom-width">Car Number</label>
                             <input type="text" class="form-control" id="checkCarNumber"
                                    placeholder="Enter your car number" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="checkPhoneNumber" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="checkPhoneNumber"
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="checkPhoneNumber" class="form-label field-custom-width">Phone Number</label>
+                            <input type="text" class="form-control" id="checkPhoneNumber"
                                    placeholder="Enter your phone number" required>
                         </div>
                         <div class="mb-3">
-                            <label for="checkEmail" class="form-label">Email (Optional)</label>
+                            <label for="" class="form-label ">Or</label>
+                        </div>
+                        <div class="mb-3 d-flex align-items-center">
+                            <label for="checkEmail" class="form-label field-custom-width">Email</label>
                             <input type="email" class="form-control" id="checkEmail" placeholder="Enter your email">
                         </div>
-                        <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3">Check</button>
+                        <div class="text-center mt-4">
+                            <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3">Check</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -223,15 +242,19 @@ include 'template/header.phtml';
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Appointment Booked</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="successModalLabel">Appointment Booked</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Your appointment has been successfully booked!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="redirectToSection()">Close</button>
+                    <div class="mb-3 d-flex align-items-center">
+                        Your appointment has been successfully booked!
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                                data-bs-dismiss="modal" onclick="redirectToSection()">Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -250,7 +273,9 @@ include 'template/header.phtml';
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="showBookingModal()">Go Back to Booking</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="showBookingModal()">
+                        Go Back to Booking
+                    </button>
                 </div>
             </div>
         </div>

@@ -51,6 +51,14 @@ body {
     color: #ff8802;
 }
 
+.navbar-toggler {
+    font-size: 12px;
+    padding: 5px 10px;
+    color: transparent;
+    background-color: #ff8802;
+    border: none;
+}
+
 footer {
     background-color: #2f354b;
     padding: 40px 0;
@@ -233,14 +241,11 @@ footer .footer-section ul li a:hover {
 }
 
 .services-section .card {
-    margin: 30px 0;
     max-width: 350px;
     text-align: center;
     border: none;
     background-color: transparent;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 20%;
+    margin: 30px 5% 20%;
 }
 
 .services-section .card-title {
@@ -260,22 +265,60 @@ footer .footer-section ul li a:hover {
     border-radius: 10px !important;
 }
 
-@keyframes appear {
-    from {
-        opacity: 0;
-        scale: 0.5;
-    }
-    to {
-        opacity: 1;
-        scale: 1;
-    }
+
+.modal-header {
+    border-bottom: none;
+    background-color: #fee1bf;
+
+
 }
 
-.appointment-container h1 {
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0;
+.modal-header h5 {
+    font-weight: bold;
+    color: #ff8802;
 }
+
+.modal-body {
+    background-color: #fee1bf;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+.form-control,
+.form-select,
+.modal-body {
+    font-size: 15px;
+}
+
+.form-label {
+    margin-bottom: 0;
+}
+
+.form-control, .form-select {
+    flex: 1;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.field-custom-width {
+    width: 150px;
+}
+
+.field-login-width {
+    width: 20%;
+}
+
+
+input[type="text"], input[type="email"], input[type="password"], textarea, select {
+    outline: none;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+}
+
 
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
@@ -286,6 +329,10 @@ footer .footer-section ul li a:hover {
 
 /* Media Query: Tablets */
 @media screen and (min-width: 577px) and (max-width: 768px) {
+    .navbar-brand {
+        margin-left: 0;
+    }
+
     .home-section {
         margin-top: 60px;
     }
@@ -339,10 +386,24 @@ footer .footer-section ul li a:hover {
         font-size: 12px;
         padding: 2px 20px;
     }
+
+    .modal-header h5 {
+        font-size: 18px;
+    }
+
+    .form-control,
+    .form-select,
+    .modal-body {
+        font-size: 13px;
+    }
 }
 
 /* Media Query: Mobile Devices */
 @media screen and (max-width: 576px) {
+    .navbar-brand {
+        margin-left: 0;
+    }
+
     .home-section {
         margin-top: 50px;
     }
@@ -423,4 +484,20 @@ footer .footer-section ul li a:hover {
         font-size: 10px;
         padding: 2px 20px;
     }
+
+    .modal-header h5 {
+        font-size: 15px;
+    }
+
+    .form-control,
+    .form-select,
+    .modal-body {
+        font-size: 11px;
+    }
+
+    .field-custom-width {
+        width: 170px;
+    }
+
+
 }
