@@ -31,14 +31,6 @@ class AppointmentsDataSetModel {
         return $statement->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getUsers(){
-        $sqlQuery = "SELECT * FROM Users";
-        $statement = $this->_dbHandle->prepare($sqlQuery);
-        $statement->execute();
-        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $users;
-    }
-
     public function getCarBrands()
     {
         $statement = $this->_dbHandle->prepare('SELECT * FROM carBrands');
@@ -52,6 +44,18 @@ class AppointmentsDataSetModel {
         $statement->bindParam(':brand_id', $brand_id, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countAppointmentsByDateTime($appointmentDate, $appointmentTime)
+    {
+        $sqlQuery = "SELECT COUNT(*) as total FROM Appointments WHERE appointment_date = :appointment_date AND appointment_time = :appointment_time";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->bindParam(':appointment_date', $appointmentDate);
+        $statement->bindParam(':appointment_time', $appointmentTime);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
     }
 
     public function insertAppointment($fullName, $carNumber, $carBrandId, $carModelId, $appointmentDate, $appointmentTime, $phoneNumber, $email, $remark)
@@ -110,25 +114,4 @@ class AppointmentsDataSetModel {
 
 // Example usage
 //$model = new AppointmentsDataSetModel();
-//$users = $model->getUsers();
 
-// Check connection explicitly
-//if (count($users) > 0) {
-// echo "<html><head><title>Users List</title></head><body>";
-// echo "<table border='1'>";
-//  echo "<tr><th>ID</th><th>Info</th><th>Email</th><th>Password</th></tr>"; // Table header
-
-//  foreach ($users as $user) {
-//     echo "<tr>";
-//    echo "<td>" . htmlspecialchars($user['id']) . "</td>"; // Data cells
-//    echo "<td>" . htmlspecialchars($user['info']) . "</td>";
-//     echo "<td>" . htmlspecialchars($user['email']) . "</td>";
-//    echo "<td>" . htmlspecialchars($user['password']) . "</td>";
-//    echo "</tr>";
-//  }
-
-//  echo "</table>"; // Closing table tag
-//  echo "</body></html>"; // Closing body and html tags
-//} else {
-//   echo "No users found.";
-//}

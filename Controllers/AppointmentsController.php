@@ -35,6 +35,17 @@ class AppointmentsController
             $remark = isset($_POST['remark']) ? $_POST['remark'] : null;
 
             if ($fullName && $carNumber && $carBrand && $carModel && $appointmentDate && $appointmentTime && $phoneNumber) {
+                $appointmentCount = $this->model->countAppointmentsByDateTime($appointmentDate, $appointmentTime);
+                if ($appointmentCount >= 2) {
+                    echo '<script>
+                   document.addEventListener("DOMContentLoaded", function() {
+                        var failureModal = new bootstrap.Modal(document.getElementById("failureModal"));
+                        failureModal.show();
+                    });
+                </script>';
+                    return;
+                }
+
                 $success = $this->model->insertAppointment($fullName, $carNumber, $carBrand, $carModel, $appointmentDate, $appointmentTime, $phoneNumber, $email, $remark);
 
                 if ($success) {
