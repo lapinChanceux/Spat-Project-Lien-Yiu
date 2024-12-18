@@ -23,6 +23,15 @@ class AppointmentsDataSetModel {
         return $appointments;
     }
 
+    public function getAppointmentsCount() {
+        $sqlQuery = "SELECT COUNT(*) FROM Appointments";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        return $count;
+    }
+
+
     public function getAppointmentId($id) {
         $sqlQuery = "SELECT * FROM Appointments WHERE appointment_id = :id";
         $statement = $this->_dbHandle->prepare($sqlQuery);

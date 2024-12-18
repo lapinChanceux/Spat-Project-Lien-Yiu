@@ -24,6 +24,7 @@ class AppointmentsController
     //Retrieve all appointments
     public function getAppointments() {
         $appointments = $this->model->getAppointments();
+        $appointmentsCount = $this->model->getAppointmentsCount();
         include 'Views/admin-dashboard.phtml'; // Replace with your actual view file path.
     }
 

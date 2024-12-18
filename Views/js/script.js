@@ -81,3 +81,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
     observer.observe(visitorCountElement);
 });
+
+
+document.getElementById('searchBox').addEventListener('keyup', filterAndSortAppointments);
+document.getElementById('sortBy').addEventListener('change', filterAndSortAppointments);
+function filterAndSortAppointments() {
+    const searchValue = document.getElementById('searchBox').value.toLowerCase();
+    const sortByValue = document.getElementById('sortBy').value;
+
+    // Get all rows in the table
+    const tableRows = document.querySelectorAll('.appointment-table tbody tr');
+
+    tableRows.forEach(row => {
+        const columns = row.querySelectorAll('td');
+        const rowText = Array.from(columns).map(col => col.textContent.toLowerCase()).join(' ');
+
+        // Check if the row matches the search query
+        const matchesSearch = rowText.includes(searchValue);
+
+        // Check if the row matches the sort filter (if selected)
+        const matchesSort = sortByValue === '' || columns[7].textContent.trim() === sortByValue;
+
+        // Show or hide the row based on the conditions
+        row.style.display = matchesSearch && matchesSort ? '' : 'none';
+    });
+}
+
+// Function to format the date
+function formatDate(date) {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-GB', options);
+}
+
+// Set today's date in the desired format
+document.getElementById('currentDate').textContent = formatDate(new Date());
+// Event listeners for search and sort
+
