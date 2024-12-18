@@ -1,0 +1,137 @@
+<?php
+include 'template/header.phtml';
+?>
+
+<section id="dashboard-section" class="container-fluid dashboard-section"
+         style="background-image: url('/Views/images/home-background.png')">
+    <div class="d-flex w-100 justify-content-between dashboard-container" style="">
+        <div>
+            <h1>Welcome Back, <br><span style="color: #ff8802;">Admin</span></h1>
+            <p><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;11 December 2024</p>
+            <p>Ready to take charge of your day? Keep track<br>of appointment,
+                update statuses, and ensure <br>every thing runs smoothly</p>
+            <button type="button" class="btn btn-primary btn-sm custom-button">View All Appointment</button>
+        </div>
+
+        <div class="summary-section" style="width: 40%; text-align: center">
+            <h5 class="mb-3">Today's Appointment Summary</h5>
+            <div class="px-4 mb-4 py-3 summary-border">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="summary-info">Pending Appointment</div>
+                    <div class="summary-detail">10</div>
+                </div>
+            </div>
+
+            <div class="px-4 mb-4 py-3" style="border-radius: 25px; background: #2f354b;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="summary-info">On-Service Appointment</div>
+                    <div class="summary-detail">10</div>
+                </div>
+            </div>
+
+            <div class="px-4 py-3" style="border-radius: 25px; background: #2f354b;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="summary-info">Completed Appointment</div>
+                    <div class="summary-detail">10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="appointment-section" class="container-fluid dashboard-section pb-5"
+         style="background-color: #151a26">
+    <div class="row text-center">
+        <div class="col mt-5">
+            <h1 style="color: #ff8802; font-weight: bold">Appointment Table</h1>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col">
+                <div style="font-weight: bold; color: #ff8802; ">Total Appointment</div>
+            </div>
+            <div class="col-2 offset-1" style="padding: 10px 12px">
+                <div class="input-group">
+                    <select class="form-control" id="filterBy" style="background: #f9fafc; color: #878991; border-radius: 25px">
+                        <option selected value="">Filter By...</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3" style="padding: 10px 12px; position: relative;">
+                <div class="input-group">
+                    <input
+                            class="form-control"
+                            type="text"
+                            id="searchBox"
+                            placeholder="Search..."
+                            style="background: #f9fafc; color: #878991; border-radius: 25px; padding-left: 30px;"
+                            value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                            onkeyup="performSearch()">
+                    <i class="bi bi-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #878991; z-index: 10;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-borderless mb-0 appointment-table">
+            <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Car Number</th>
+                <th>Date & Time</th>
+                <th>Phone Number</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>XYZ-1234</td>
+                <td>16-Dec-2024 10:30 AM</td>
+                <td>+1 234 567 890</td>
+                <td>Completed</td>
+                <td>
+                    <div class="d-flex gap-3 justify-content-center"> <!-- Add gap using Bootstrap's gap utility -->
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-pen-fill"></i>
+                        </button>
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>ABC-5678</td>
+                <td>16-Dec-2024 2:00 PM</td>
+                <td>+1 987 654 321</td>
+                <td>Pending</td>
+                <td>
+                    <div class="d-flex gap-3 justify-content-center"> <!-- Add gap using Bootstrap's gap utility -->
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-pen-fill"></i>
+                        </button>
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-eye-fill"></i>
+                        </button>
+                        <button class="btn btn-sm action-button">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+<?php
+include 'template/footer.phtml';
+?>
