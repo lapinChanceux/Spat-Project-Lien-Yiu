@@ -21,6 +21,12 @@ class AppointmentsController
         return $this->model->getCarModels($brand_id);
     }
 
+    //Retrieve all appointments
+    public function getAppointments() {
+        $appointments = $this->model->getAppointments();
+        include 'Views/admin-dashboard.phtml'; // Replace with your actual view file path.
+    }
+
     public function insertAppointment()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

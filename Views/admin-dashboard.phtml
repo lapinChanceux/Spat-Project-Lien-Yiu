@@ -74,60 +74,60 @@ include 'template/header.phtml';
         </div>
     </div>
     <div class="container-fluid">
-        <table class="table table-borderless mb-0 appointment-table">
-            <thead class="table-dark">
-            <tr>
-                <th>Name</th>
-                <th>Car Number</th>
-                <th>Date & Time</th>
-                <th>Phone Number</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>John Doe</td>
-                <td>XYZ-1234</td>
-                <td>16-Dec-2024 10:30 AM</td>
-                <td>+1 234 567 890</td>
-                <td>Completed</td>
-                <td>
-                    <div class="d-flex gap-3 justify-content-center"> <!-- Add gap using Bootstrap's gap utility -->
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-pen-fill"></i>
-                        </button>
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Jane Smith</td>
-                <td>ABC-5678</td>
-                <td>16-Dec-2024 2:00 PM</td>
-                <td>+1 987 654 321</td>
-                <td>Pending</td>
-                <td>
-                    <div class="d-flex gap-3 justify-content-center"> <!-- Add gap using Bootstrap's gap utility -->
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-pen-fill"></i>
-                        </button>
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-eye-fill"></i>
-                        </button>
-                        <button class="btn btn-sm action-button">
-                            <i class="bi bi-trash3-fill"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <?php
+        function displayAppointments($appointments) {
+            echo "<table class='table table-borderless mb-0 appointment-table'>";
+            echo "<thead class='table-dark'>";
+            echo "<tr>";
+            echo "<th>Name</th>";
+            echo "<th>Car Number</th>";
+            echo "<th>Car Type</th>";
+            echo "<th>Date</th>";
+            echo "<th>Time</th>";
+            echo "<th>Phone Number</th>";
+            echo "<th>Email</th>";
+            echo "<th>Remark</th>";
+            echo "<th>Action</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+
+            if (!empty($appointments) && is_array($appointments)) {
+                foreach ($appointments as $appointment) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['customer_name']) ? $appointment['customer_name'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['car_number']) ? $appointment['car_number'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['car_type']) ? $appointment['car_type'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['appointment_date']) ? $appointment['appointment_date'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['appointment_time']) ? $appointment['appointment_time'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['phone_number']) ? $appointment['phone_number'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['email']) ? $appointment['email'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['remark']) ? $appointment['remark'] : '') . "</td>";
+                    echo "<td>";
+                    echo "<div class='d-flex gap-3 justify-content-center'>";
+                    echo "<button class='btn btn-sm action-button'><i class='bi bi-pen-fill'></i></button>";
+                    echo "<button class='btn btn-sm action-button'><i class='bi bi-eye-fill'></i></button>";
+                    echo "<button class='btn btn-sm action-button'><i class='bi bi-trash3-fill'></i></button>";
+                    echo "</div>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='9' class='text-center'>No appointments available</td></tr>";
+            }
+
+            echo "</tbody>";
+            echo "</table>";
+        }
+
+        if (isset($appointments)) {
+            displayAppointments($appointments);
+        } else {
+            echo "<p>No appointments found.</p>";
+        }
+        ?>
+
+
     </div>
 </section>
 
