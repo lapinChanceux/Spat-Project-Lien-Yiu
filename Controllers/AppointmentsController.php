@@ -67,6 +67,10 @@ class AppointmentsController
         }
         require_once('Views/home.phtml');
     }
+
+    public function updateAppointment($appointmentId,$newStatus){
+        return $this->model->updateAppointmentStatus($appointmentId, $newStatus);
+    }
 }
 
 // Instantiate the controller

@@ -104,14 +104,28 @@ class AppointmentsDataSetModel {
         $statement->bindValue(':email', $email ?: null, PDO::PARAM_STR);
         $statement->bindValue(':remark', $remark ?: null, PDO::PARAM_STR);
         $statement->bindParam(':created_at', $createdAt);
+        if ($statement->execute()) {
+            // Get the last inserted appointment ID
+            $appointmentId = $this->_dbHandle->lastInsertId();
 
+            // Insert into ServiceStatuses table
+            $statusStatement = $this->_dbHandle->prepare("INSERT INTO ServiceStatuses (status, appointment_id) VALUES (:status, :appointment_id)");
+            $defaultStatus = 'Pending'; // Default status
+            $statusStatement->bindParam(':status', $defaultStatus, PDO::PARAM_STR);
+            $statusStatement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+
+            return $statusStatement->execute(); // Return true if successful
+        }
+
+        return false;
+        }
+    public function updateAppointmentStatus($appointmentId, $status){
+        $statement = $this->_dbHandle->prepare("UPDATE ServiceStatuses SET status = :status WHERE appointment_id = :appointment_id");
+        $statement->bindParam(':status', $status, PDO::PARAM_STR);
+        $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
     }
-
-
-
 }
 
 // Example usage
 //$model = new AppointmentsDataSetModel();
-
