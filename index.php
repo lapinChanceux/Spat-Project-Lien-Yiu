@@ -20,7 +20,7 @@ if ($page === 'home') {
 
         if ($loginSuccess) {
             // If login is successful, redirect to the admin page
-            include 'Views/admin-dashboard.phtml';
+            header('Location: index.php?page=admin-dashboard');
         } else {
             // If login fails, stay on the home page and show error message
             header('Location: index.php'); // Redirection
