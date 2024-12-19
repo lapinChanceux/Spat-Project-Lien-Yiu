@@ -16,7 +16,10 @@ class AppointmentsDataSetModel {
     }
 
     public function getAppointments(){
-        $sqlQuery = "SELECT * FROM Appointments";
+        $sqlQuery = "SELECT Appointments.*, serviceStatuses.status 
+                     FROM Appointments
+                     LEFT JOIN serviceStatuses 
+                     ON serviceStatuses.appointment_id = Appointments.appointment_id";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $appointments = $statement->fetchAll(PDO::FETCH_ASSOC);
