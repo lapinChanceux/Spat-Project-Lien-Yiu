@@ -281,6 +281,33 @@ include 'template/header.phtml';
         </div>
     </div>
 
+    <!-- Modal: View Appointment Confirmation -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="confirmationModalLabel">Appointment Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <p>Mr/Ms <strong>&lt;name&gt;</strong>, your booking is confirmed with car number <strong>&lt;car
+                                number&gt;</strong> on <strong>&lt;date&gt;</strong>.</p>
+                        <p>If you wish to cancel your appointment, click the button below.</p>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-danger btn-sm custom-button mt-3 mb-3">Cancel Appointment
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm custom-button mt-3 mb-3"
+                                data-bs-dismiss="modal">Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <?php
 include 'template/footer.phtml';
 ?>
