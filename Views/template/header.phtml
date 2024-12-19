@@ -35,10 +35,17 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
-                </li>
+                <?php if (isset($_SESSION['user'])): ?>
+                    <!-- If the user is logged in, show Logout -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=logout">Logout</a>
+                    </li>
+                <?php else: ?>
+                    <!-- If the user is not logged in, show Login -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                    </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
@@ -53,14 +60,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form method="POST" action="index.php?page=admin">
                     <div class="mb-3 d-flex align-items-center">
                         <label for="username" class="form-label me-3 login field-login-width">Username</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
                     </div>
                     <div class="mb-3 d-flex align-items-center">
                         <label for="password" class="form-label me-3 login field-login-width">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                     </div>
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary btn-sm custom-button mt-3 mb-3">Login</button>
