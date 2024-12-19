@@ -11,6 +11,7 @@ Make an appointment
 5. If both validation is success user information will be store into the database and a success modal will pop up indicate the booking is confirm.
 6. An conformation email also will be send to the user email address.
 
+
 Appointment Form Validation
 
 - Name = No numbers allow.
@@ -19,6 +20,7 @@ Appointment Form Validation
 - Date = Today and the day before cannot be selected.
 - Time = Only allow to select time between 9am to 5pm (working hour).
 - Phone number and email are required to fill.
+
 
 View, Display and Cancel An Appointment
 
