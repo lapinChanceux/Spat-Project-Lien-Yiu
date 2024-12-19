@@ -1,21 +1,11 @@
 <?php
 
 class Database {
-    /**
-     * @var Database Singleton instance of the Database class
-     */
+
     protected static $_dbInstance = null;
 
-    /**
-     * @var PDO The PDO handle for database connection
-     */
     protected $_dbHandle;
 
-    /**
-     * Returns the singleton instance of the Database class
-     *
-     * @return Database
-     */
     public static function getInstance() {
         // Check if an instance already exists
         if (self::$_dbInstance === null) {
@@ -36,11 +26,6 @@ class Database {
         }
     }
 
-    /**
-     * Returns the PDO database connection handle
-     *
-     * @return PDO
-     */
     public function getdbConnection() {
         return $this->_dbHandle; // Provide the PDO handle for use in other classes
     }
