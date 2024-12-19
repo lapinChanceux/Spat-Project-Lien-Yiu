@@ -308,12 +308,15 @@ footer .footer-section ul li a:hover {
     width: 150px;
 }
 
-.field-login-width {
+.field-login-username {
     width: 20%;
 }
 
+.field-login-password {
+    width: 26%;
+}
 
-input[type="text"], input[type="email"], input[type="password"], textarea, select {
+input[type="text"], input[type="email"], input[type="password"], textarea, select, .form-check-input {
     outline: none;
     box-shadow: none !important;
     border: 1px solid #ccc !important;
@@ -410,6 +413,17 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     transform: scale(1.1);
 }
 
+.form-check-input {
+    margin-top: 0;
+
+}
+
+.input-group-text {
+    font-size: 15px;
+    background-color:white ;
+    border: 1px solid #c8cacf;
+}
+
 
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
@@ -484,7 +498,8 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .form-control,
     .form-select,
-    .modal-body {
+    .modal-body,
+    .input-group-text {
         font-size: 13px;
     }
 }
@@ -582,13 +597,12 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .form-control,
     .form-select,
-    .modal-body {
+    .modal-body,
+    .input-group-text {
         font-size: 11px;
     }
 
     .field-custom-width {
         width: 170px;
     }
-
-
 }
