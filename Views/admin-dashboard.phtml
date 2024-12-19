@@ -8,7 +8,7 @@ $jsonAppointments = json_encode($appointments);
     <div class="d-flex w-100 justify-content-between dashboard-container" style="">
         <div>
             <h1>Welcome Back, <br><span style="color: #ff8802;">Admin</span></h1>
-            <p><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;<span id="currentDate"></span></p>
+            <p><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;<span><?php echo $adminCurrentDate; ?></span></p>
             <p>Ready to take charge of your day? Keep track<br>of appointment,
                 update statuses, and ensure <br>every thing runs smoothly</p>
             <button type="button" class="btn btn-primary btn-sm custom-button">View All Appointment</button>
@@ -56,7 +56,8 @@ $jsonAppointments = json_encode($appointments);
             </div>
             <div class="col-2 offset-1" style="padding: 10px 12px">
                 <div class="input-group">
-                    <select class="form-control" id="sortBy" style="background: #f9fafc; color: #878991; border-radius: 25px">
+                    <select class="form-control" id="sortBy"
+                            style="background: #f9fafc; color: #878991; border-radius: 25px">
                         <option selected value="">Sort By</option>
                         <option value="Pending">Pending</option>
                         <option value="On Service">On Service</option>
@@ -74,14 +75,16 @@ $jsonAppointments = json_encode($appointments);
                             style="background: #f9fafc; color: #878991; border-radius: 25px; padding-left: 30px;"
                             value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
                             onkeyup="performSearch()">
-                    <i class="bi bi-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #878991; z-index: 10;"></i>
+                    <i class="bi bi-search"
+                       style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #878991; z-index: 10;"></i>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <?php
-        function displayAppointments($appointments) {
+        function displayAppointments($appointments)
+        {
             echo "<table class='table table-borderless mb-0 appointment-table'>";
             echo "<thead class='table-dark'>";
             echo "<tr>";
@@ -93,6 +96,7 @@ $jsonAppointments = json_encode($appointments);
             echo "<th>Phone Number</th>";
             echo "<th>Email</th>";
             echo "<th>Remark</th>";
+            echo "<th>Status</th>";
             echo "<th>Action</th>";
             echo "</tr>";
             echo "</thead>";
@@ -109,6 +113,7 @@ $jsonAppointments = json_encode($appointments);
                     echo "<td>" . htmlspecialchars(isset($appointment['phone_number']) ? $appointment['phone_number'] : '') . "</td>";
                     echo "<td>" . htmlspecialchars(isset($appointment['email']) ? $appointment['email'] : '') . "</td>";
                     echo "<td>" . htmlspecialchars(isset($appointment['remark']) ? $appointment['remark'] : '') . "</td>";
+                    echo "<td>" . htmlspecialchars(isset($appointment['status']) ? $appointment['status'] : '') . "</td>";
                     echo "<td>";
                     echo "<div class='d-flex gap-3 justify-content-center'>";
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#updateStatusModal'><i class='bi bi-pen-fill'></i></button>";
@@ -119,12 +124,13 @@ $jsonAppointments = json_encode($appointments);
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='9' class='text-center'>No appointments available</td></tr>";
+                echo "<tr><td colspan='10' class='text-center'>No appointments available</td></tr>";
             }
 
             echo "</tbody>";
             echo "</table>";
         }
+
 
         if (isset($appointments)) {
             displayAppointments($appointments);
@@ -138,7 +144,8 @@ $jsonAppointments = json_encode($appointments);
 </section>
 
 <!--Edit Modal-->
-<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">

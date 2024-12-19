@@ -13,8 +13,10 @@ if ($page === 'home') {
     include 'Views/home.phtml';
 } elseif ($page === 'admin-dashboard') { // Admin dashboard route
     $controller = new AppointmentsController();
-    $appointments = $controller->getAppointments(); // Retrieve appointment list
-    include 'Views/admin-dashboard.phtml'; // Include the admin dashboard view
+    $data = $controller->getAppointments();
+    $appointments = $data['appointments'];
+    $appointmentsCount = $data['appointmentsCount'];
+    include 'Views/admin-dashboard.phtml';
 } else {
     echo "Page not found.";
 }

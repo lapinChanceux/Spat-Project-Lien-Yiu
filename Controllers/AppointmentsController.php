@@ -1,6 +1,13 @@
 <?php
-
+// AppointmentsControllers.php
 require_once 'Model/AppointmentsDataSetModel.php';
+
+// Set the timezone to Malaysia
+date_default_timezone_set('Asia/Kuala_Lumpur');
+
+// Get the current date in the desired format
+$adminCurrentDate = date("d F Y");
+
 
 class AppointmentsController
 {
@@ -21,11 +28,11 @@ class AppointmentsController
         return $this->model->getCarModels($brand_id);
     }
 
-    //Retrieve all appointments
-    public function getAppointments() {
+    public function getAppointments()
+    {
         $appointments = $this->model->getAppointments();
         $appointmentsCount = $this->model->getAppointmentsCount();
-        include 'Views/admin-dashboard.phtml'; // Replace with your actual view file path.
+        return ['appointments' => $appointments, 'appointmentsCount' => $appointmentsCount];
     }
 
     public function insertAppointment()
@@ -45,11 +52,13 @@ class AppointmentsController
                 $appointmentCount = $this->model->countAppointmentsByDateTime($appointmentDate, $appointmentTime);
                 if ($appointmentCount >= 2) {
                     echo '<script>
-                   document.addEventListener("DOMContentLoaded", function() {
-                        var failureModal = new bootstrap.Modal(document.getElementById("failureModal"));
-                        failureModal.show();
-                    });
-                </script>';
+        document.addEventListener("DOMContentLoaded", function() {
+            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+            document.getElementById("resultModalLabel").innerText = "Appointment Failed";
+            document.getElementById("resultModalBody").innerHTML = "The selected time is not available. Please choose another time.";
+            resultModal.show();
+        });
+    </script>';
                     return;
                 }
 
@@ -57,25 +66,30 @@ class AppointmentsController
 
                 if ($success) {
                     echo '<script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var successModal = new bootstrap.Modal(document.getElementById("successModal"));
-                        successModal.show();
-                    });
-                </script>';
+        document.addEventListener("DOMContentLoaded", function() {
+            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+            document.getElementById("resultModalLabel").innerText = "Appointment Booked";
+            document.getElementById("resultModalBody").innerHTML = "Your appointment has been successfully booked!";
+            resultModal.show();
+        });
+    </script>';
                 } else {
                     echo '<script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        var failureModal = new bootstrap.Modal(document.getElementById("failureModal"));
-                        failureModal.show();
-                    });
-                </script>';
+        document.addEventListener("DOMContentLoaded", function() {
+            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+            document.getElementById("resultModalLabel").innerText = "Appointment Failed";
+            document.getElementById("resultModalBody").innerHTML = "Failed to book the appointment. Please try again.";
+            resultModal.show();
+        });
+    </script>';
                 }
             }
         }
         require_once('Views/home.phtml');
     }
 
-    public function updateAppointment($appointmentId,$newStatus){
+    public function updateAppointment($appointmentId, $newStatus)
+    {
         return $this->model->updateAppointmentStatus($appointmentId, $newStatus);
     }
 }
