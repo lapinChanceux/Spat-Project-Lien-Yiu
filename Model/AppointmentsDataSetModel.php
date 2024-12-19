@@ -16,10 +16,10 @@ class AppointmentsDataSetModel {
     }
 
     public function getAppointments(){
-        $sqlQuery = "SELECT Appointments.*, serviceStatuses.status 
-                     FROM Appointments
-                     LEFT JOIN serviceStatuses 
-                     ON serviceStatuses.appointment_id = Appointments.appointment_id";
+        $sqlQuery = "SELECT appointments.*, serviceStatus.status 
+                     FROM appointments
+                     LEFT JOIN serviceStatus 
+                     ON serviceStatus.appointment_id = appointments.appointment_id";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
         $appointments = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -27,16 +27,14 @@ class AppointmentsDataSetModel {
     }
 
     public function getAppointmentsCount() {
-        $sqlQuery = "SELECT COUNT(*) FROM Appointments";
+        $sqlQuery = "SELECT COUNT(*) FROM appointments";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->execute();
-        $count = $statement->fetchColumn();
-        return $count;
+        return $statement->fetchColumn();
     }
 
-
     public function getAppointmentId($id) {
-        $sqlQuery = "SELECT * FROM Appointments WHERE appointment_id = :id";
+        $sqlQuery = "SELECT * FROM appointments WHERE appointment_id = :id";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->bindParam(':id', $id);
         $statement->execute();
@@ -60,7 +58,7 @@ class AppointmentsDataSetModel {
 
     public function countAppointmentsByDateTime($appointmentDate, $appointmentTime)
     {
-        $sqlQuery = "SELECT COUNT(*) as total FROM Appointments WHERE appointment_date = :appointment_date AND appointment_time = :appointment_time";
+        $sqlQuery = "SELECT COUNT(*) as total FROM appointments WHERE appointment_date = :appointment_date AND appointment_time = :appointment_time";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->bindParam(':appointment_date', $appointmentDate);
         $statement->bindParam(':appointment_time', $appointmentTime);
@@ -102,7 +100,7 @@ class AppointmentsDataSetModel {
         $createdAt = date('Y-m-d H:i:s');
 
         // Insert the appointment into the database
-        $sqlQuery = "INSERT INTO Appointments (customer_name, car_number, car_type, appointment_date, appointment_time, phone_number, email, remark, created_at)
+        $sqlQuery = "INSERT INTO appointments (customer_name, car_number, car_type, appointment_date, appointment_time, phone_number, email, remark, created_at)
                  VALUES (:full_name, :car_number, :car_type, :appointment_date, :appointment_time, :phone_number, :email, :remark, :created_at)";
 
         $statement = $this->_dbHandle->prepare($sqlQuery);
@@ -121,7 +119,7 @@ class AppointmentsDataSetModel {
             $appointmentId = $this->_dbHandle->lastInsertId();
 
             // Insert into ServiceStatuses table
-            $statusStatement = $this->_dbHandle->prepare("INSERT INTO ServiceStatuses (status, appointment_id) VALUES (:status, :appointment_id)");
+            $statusStatement = $this->_dbHandle->prepare("INSERT INTO serviceStatus (status, appointment_id) VALUES (:status, :appointment_id)");
             $defaultStatus = 'Pending'; // Default status
             $statusStatement->bindParam(':status', $defaultStatus, PDO::PARAM_STR);
             $statusStatement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
@@ -132,7 +130,7 @@ class AppointmentsDataSetModel {
         return false;
         }
     public function updateAppointmentStatus($appointmentId, $status){
-        $statement = $this->_dbHandle->prepare("UPDATE ServiceStatuses SET status = :status WHERE appointment_id = :appointment_id");
+        $statement = $this->_dbHandle->prepare("UPDATE serviceStatus SET status = :status WHERE appointment_id = :appointment_id");
         $statement->bindParam(':status', $status, PDO::PARAM_STR);
         $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
