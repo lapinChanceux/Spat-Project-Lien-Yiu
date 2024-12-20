@@ -14,6 +14,7 @@ class LoginController {
         // Extract data from the request
         $username = trim($requestData['username']);
         $password = $requestData['password'];
+        $rememberMe = isset($requestData['rememberMe']) && $requestData['rememberMe'];
 
         // Validate input
         if (empty($username) || empty($password)) {
@@ -26,12 +27,26 @@ class LoginController {
         if ($user) {
             // Login successful: Store user data in session
             $_SESSION['user'] = $user; // Store user details in session
-
+            if ($rememberMe) {
+                setcookie("username", $username, time() + 3600, "/");
+                setcookie("password", $password, time() + 3600, "/");
+            }
             return true;
         } else {
             // Authentication failed
             return false;
         }
+    }
+    public function loginFail()
+    {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var resultModal = new bootstrap.Modal(document.getElementById("loginFailedModal"));
+        document.getElementById("loginFailedModalLabel").innerText = "Login Failed";
+        document.getElementById("loginFailedModalBody").innerHTML = "Wrong username or password. Please try again.";
+        resultModal.show();
+        });
+    </script>';
     }
 }
 ?>
