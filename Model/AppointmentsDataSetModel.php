@@ -33,6 +33,29 @@ class AppointmentsDataSetModel {
         return $statement->fetchColumn();
     }
 
+    public function getAppointmentsCountByStatus($status) {
+        $sqlQuery = "SELECT COUNT(*) FROM appointments
+                 LEFT JOIN serviceStatus ON appointments.appointment_id = serviceStatus.appointment_id
+                 WHERE serviceStatus.status = :status";
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->bindParam(':status', $status, PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchColumn();
+    }
+
+    public function getAppointmentsCountByStatusToday($status) {
+        $sqlQuery = "SELECT COUNT(*) 
+             FROM appointments
+             LEFT JOIN serviceStatus ON appointments.appointment_id = serviceStatus.appointment_id
+             WHERE serviceStatus.status = :status 
+             AND appointments.appointment_date = date('now')";  // Filter by today's date
+        $statement = $this->_dbHandle->prepare($sqlQuery);
+        $statement->bindParam(':status', $status, PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchColumn();
+    }
+
+
     public function getAppointmentId($id) {
         $sqlQuery = "SELECT * FROM appointments WHERE appointment_id = :id";
         $statement = $this->_dbHandle->prepare($sqlQuery);

@@ -26,7 +26,12 @@ if ($page === 'home') {
     $data = $controller->getAppointments();
     $appointments = $data['appointments'];
     $appointmentsCount = $data['appointmentsCount'];
-
+    $pendingCount = $data['pendingCount'];
+    $onServiceCount = $data['onServiceCount'];
+    $completedCount = $data['completedCount'];
+    $pendingCountToday = $data['pendingCountToday'];
+    $onServiceCountToday = $data['onServiceCountToday'];
+    $completedCountToday = $data['completedCountToday'];
     include 'Views/admin-dashboard.phtml';
 } else {
     echo "Page not found.";

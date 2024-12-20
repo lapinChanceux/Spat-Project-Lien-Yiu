@@ -31,6 +31,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="index.php?page=home#services-section">Services</a>
                 </li>
+
+                <!-- Wait for the session-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link position-relative admin-header" href="index.php?page=admin-dashboard#dashboard-section">Dashboard-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link position-relative admin-header" href="index.php?page=admin-dashboard#appointment-section">Pending-->
+<!--                        <span class="position-absolute status-count">--><?php //echo $pendingCount; ?><!--</span></a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link position-relative admin-header" href="index.php?page=admin-dashboard#appointment-section"">On-Service-->
+<!--                        <span class="position-absolute status-count">--><?php //echo $onServiceCount; ?><!--</span></a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link position-relative admin-header" href="index.php?page=admin-dashboard#appointment-section">Completed-->
+<!--                        <span class="position-absolute status-count">--><?php //echo $completedCount; ?><!--</span></a>-->
+<!--                </li>-->
             </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -60,7 +77,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="index.php?page=admin">
+                <form method="POST" action="index.php?page=admin-dashboard">
                     <!-- Username Field -->
                     <div class="mb-3 d-flex align-items-center">
                         <label for="username" class="form-label me-3 login field-login-username">Username</label>

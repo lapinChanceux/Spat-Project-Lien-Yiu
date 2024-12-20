@@ -424,6 +424,12 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     border: 1px solid #c8cacf;
 }
 
+.admin-header .status-count {
+    font-size: 10px;
+    top: 10%;
+    right: 0;
+    color: #ff8802;
+}
 
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
@@ -502,6 +508,22 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     .input-group-text {
         font-size: 13px;
     }
+
+    .dashboard-container h1 {
+        font-size: 30px;
+    }
+
+    .dashboard-container p {
+        font-size: 14px;
+    }
+
+    .summary-section h5,
+    .summary-info,
+    .summary-detail {
+        font-size: 16px;
+    }
+
+
 }
 
 /* Media Query: Mobile Devices */
@@ -605,4 +627,23 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     .field-custom-width {
         width: 170px;
     }
+
+    .dashboard-container h1 {
+        font-size: 25px;
+    }
+
+    .dashboard-container h1 {
+        font-size: 30px;
+    }
+
+    .dashboard-container p {
+        font-size: 12px;
+    }
+
+    .summary-section h5,
+    .summary-info,
+    .summary-detail {
+        font-size: 13px;
+    }
+
 }

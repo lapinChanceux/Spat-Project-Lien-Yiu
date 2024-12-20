@@ -213,6 +213,21 @@ function submitDeleteForm() {
     document.getElementById('deleteForm').submit();
 }
 
+// Show the appointment detail
+function populateDetailModal(event) {
+    const button = event.currentTarget;
+
+    // Extract data attributes
+    const name = button.getAttribute('data-name');
+    const carNumber = button.getAttribute('data-car-number');
+    const date = button.getAttribute('data-date');
+
+    // Populate modal content
+    const modalBody = document.querySelector('#detailModal .modal-body .text-center');
+    modalBody.innerHTML = `<p>Hi Admin, <strong>${name}</strong> has an appointment with car place plate 
+            <strong>${carNumber}</strong> on <strong>${date}</strong>.</p>`;
+}
+
 
 
 
