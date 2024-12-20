@@ -20,21 +20,24 @@ if ($page === 'home') {
     $controller = new AppointmentsController();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Handle delete appointment request
-        if(isset($_POST['deleteAppointment'])){
-            $appointmentId = intval($_POST['appointmentId']);
-            // Call the controller to delete the appointment
-            $controller->deleteAppointment($appointmentId);
-        }elseif (isset($_POST['updateStatus'])) {
+        if (isset($_POST['updateStatus'])) {
             $appointmentId = $_POST['appointmentId'];
             $status = $_POST['status'];
             $controller->updateAppointment($appointmentId, $status);
             header('Location: index.php?page=admin-dashboard');
-        } else {
-            header('Location: index.php'); // Redirection
             exit; // Stop further code execution
         }
+        // Handle delete appointment request
+        if (isset($_POST['appointmentId']) && !isset($_POST['updateStatus'])) {
+            $appointmentId = intval($_POST['appointmentId']);
+            $controller->deleteAppointment($appointmentId);
+            header('Location: index.php?page=admin-dashboard');
+            exit; // Make sure to exit after the redirect
+        }
+        header('Location: index.php');
+        exit;
     }
+
 
     // Fetch appointments and display them
     $data = $controller->getAppointments();
