@@ -67,13 +67,13 @@ class AppointmentsController
                 $appointmentCount = $this->model->countAppointmentsByDateTime($appointmentDate, $appointmentTime);
                 if ($appointmentCount >= 2) {
                     echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
-            document.getElementById("resultModalLabel").innerText = "Appointment Failed";
-            document.getElementById("resultModalBody").innerHTML = "The selected time is not available. Please choose another time.";
-            resultModal.show();
-        });
-    </script>';
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+                        document.getElementById("resultModalLabel").innerText = "Appointment Failed";
+                        document.getElementById("resultModalBody").innerHTML = "The selected time is not available. Please choose another time.";
+                        resultModal.show();
+                    });
+                </script>';
                     return;
                 }
 
@@ -81,13 +81,13 @@ class AppointmentsController
 
                 if ($success) {
                     echo '<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
-            document.getElementById("resultModalLabel").innerText = "Appointment Booked";
-            document.getElementById("resultModalBody").innerHTML = "Your appointment has been successfully booked!";
-            resultModal.show();
-        });
-    </script>';
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+                        document.getElementById("resultModalLabel").innerText = "Appointment Booked";
+                        document.getElementById("resultModalBody").innerHTML = "Your appointment has been successfully booked!";
+                        resultModal.show();
+                    });
+                </script>';
                 } else {
                     echo '<script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -109,11 +109,45 @@ class AppointmentsController
     }
 
     public function deleteAppointment($appointmentId)
+
     {
         // Debugging: Check if the appointment ID is being passed
         error_log('Controller: Deleting appointment with ID: ' . $appointmentId);
-
         return $this->model->deleteAppointmentById($appointmentId);
+    }
+
+    public function checkBookingAppointment($carNumber){
+        $appointment = $this->model->getLatestAppointmentByCarNumber($carNumber);
+
+        if ($appointment) {
+            $customerName = htmlspecialchars($appointment['customer_name']);
+            $carNum = htmlspecialchars($appointment['car_number']);
+            $appointmentDate = htmlspecialchars($appointment['appointment_date']);
+            $appointmentTime = htmlspecialchars($appointment['appointment_time']);
+
+            // Inject the modal display logic into the page
+            echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var confirmModal = new bootstrap.Modal(document.getElementById("confirmationModal"));
+                confirmModal.show();
+                
+                // Fill in the modal with appointment details
+                document.getElementById("confirmationModalName").textContent = "' . $customerName . '";
+                document.getElementById("confirmationModalCarNumber").textContent = "' . $carNum . '";
+                document.getElementById("confirmationModalDate").textContent = "' . $appointmentDate . ' ' . $appointmentTime . '";
+            });
+        </script>';
+        } else {
+            // No appointment found for the car number
+            echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
+            document.getElementById("resultModalLabel").innerText = "";
+            document.getElementById("resultModalBody").innerHTML = "Failed to book the appointment. Please try again.";
+            resultModal.show();
+        });
+    </script>';
+        }
     }
 }
 

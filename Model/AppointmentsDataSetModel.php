@@ -158,6 +158,16 @@ class AppointmentsDataSetModel {
         $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
     }
+    public function getLatestAppointmentByCarNumber($carNumber) {
+        $query = "SELECT * FROM appointments 
+              WHERE car_number = :carNumber 
+              ORDER BY created_at DESC 
+              LIMIT 1";
+        $stmt = $this->_dbHandle->prepare($query);
+        $stmt->bindParam(':carNumber', $carNumber, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     //Delete appointment
     public function deleteAppointmentById($id) {
@@ -186,6 +196,3 @@ class AppointmentsDataSetModel {
     }
 
 }
-
-// Example usage
-//$model = new AppointmentsDataSetModel();

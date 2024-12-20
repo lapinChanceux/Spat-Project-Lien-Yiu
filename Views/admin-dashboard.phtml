@@ -116,7 +116,7 @@ $jsonAppointments = json_encode($appointments);
                     echo "<td>" . htmlspecialchars(isset($appointment['status']) ? $appointment['status'] : '') . "</td>";
                     echo "<td>";
                     echo "<div class='d-flex gap-3 justify-content-center'>";
-                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#updateStatusModal'><i class='bi bi-pen-fill'></i></button>";
+                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#updateStatusModal' data-appointment-id='" . htmlspecialchars($appointment['appointment_id']) . "' data-status='" . htmlspecialchars($appointment['status']) . "'><i class='bi bi-pen-fill'></i></button>";
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#detailModal' data-name='{$appointment['customer_name']}' data-car-number='{$appointment['car_number']}' data-date='{$appointment['appointment_date']}'onclick='populateDetailModal(event)'><i class='bi bi-eye-fill'></i></button>";
                     echo "<button type='button' class='btn btn-sm action-button'
                                 data-bs-toggle='modal'
@@ -159,23 +159,24 @@ $jsonAppointments = json_encode($appointments);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3 d-flex align-items-center">
-                    <form action="" method="POST" id="updateStatusForm">
+                <div class="mb-3">
+                    <form action="index.php?page=admin-dashboard" method="POST" id="updateStatusForm">
+                        <input type="hidden" id="appointmentId" name="appointmentId">
                         <div class="mb-3 d-flex align-items-center">
                             <label for="appointmentStatus" class="form-label me-3 field-custom-width">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option selected disabled>Select Status</option>
-                                <option id="onService" value="On Service">On Service</option>
-                                <option id="pending" value="Pending">Pending</option>
-                                <option id="Completed" value="Completed">Completed</option>
+                            <select class="form-select me-3" id="status" name="status" required>
+                                <option value="" disabled>Select Status</option>
+                                <option value="On Service">On Service</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Completed">Completed</option>
                             </select>
                         </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" name="updateStatus" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                                    data-bs-dismiss="modal">Confirm
+                            </button>
+                        </div>
                     </form>
-                </div>
-                <div class="text-center mt-4">
-                    <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
-                            data-bs-dismiss="modal" onclick="redirectToSection()">Confirm
-                    </button>
                 </div>
             </div>
         </div>
@@ -220,7 +221,7 @@ $jsonAppointments = json_encode($appointments);
                     <!-- Hidden input to hold the appointment ID -->
                     <input type="hidden" name="appointmentId" id="deleteAppointmentId">
                     <div class="text-center mt-4">
-                        <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                        <button type="button" name="deleteAppointment" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
                                 data-bs-dismiss="modal" onclick="submitDeleteForm()">Confirm
                         </button>
                     </div>

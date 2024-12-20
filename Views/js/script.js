@@ -77,6 +77,30 @@ document.addEventListener("DOMContentLoaded", function () {
     observer.observe(visitorCountElement);
 });
 
+//Update Appointment Status
+document.addEventListener('DOMContentLoaded', () => {
+    const updateStatusModal = document.getElementById('updateStatusModal');
+    const appointmentIdInput = document.getElementById('appointmentId');
+    const statusSelect = document.getElementById('status');
+
+    updateStatusModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const appointmentId = button.getAttribute('data-appointment-id');
+        const currentStatus = button.getAttribute('data-status');
+
+        console.log('Modal is triggered', appointmentId, currentStatus); // Log this to check if it triggers
+        appointmentIdInput.value = appointmentId;
+        if (currentStatus) {
+            for (let option of statusSelect.options) {
+                if (option.value === currentStatus) {
+                    option.selected = true;
+                } else {
+                    option.selected = false;
+                }
+            }
+        }
+    });
+});
 
 // Validation Script
 (function () {
