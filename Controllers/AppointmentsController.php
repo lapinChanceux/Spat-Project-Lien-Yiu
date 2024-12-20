@@ -92,6 +92,14 @@ class AppointmentsController
     {
         return $this->model->updateAppointmentStatus($appointmentId, $newStatus);
     }
+
+    public function deleteAppointment($appointmentId)
+    {
+        // Debugging: Check if the appointment ID is being passed
+        error_log('Controller: Deleting appointment with ID: ' . $appointmentId);
+
+        return $this->model->deleteAppointmentById($appointmentId);
+    }
 }
 
 // Instantiate the controller

@@ -128,13 +128,40 @@ class AppointmentsDataSetModel {
         }
 
         return false;
-        }
+    }
     public function updateAppointmentStatus($appointmentId, $status){
         $statement = $this->_dbHandle->prepare("UPDATE serviceStatus SET status = :status WHERE appointment_id = :appointment_id");
         $statement->bindParam(':status', $status, PDO::PARAM_STR);
         $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
     }
+
+    //Delete appointment
+    public function deleteAppointmentById($id) {
+        // Begin transaction
+        $this->_dbHandle->beginTransaction();
+
+        // Delete from serviceStatus
+        $sqlQueryServiceStatus = "DELETE FROM serviceStatus WHERE appointment_id = :id";
+        $statementServiceStatus = $this->_dbHandle->prepare($sqlQueryServiceStatus);
+        $resultServiceStatus = $statementServiceStatus->execute([':id' => $id]);
+
+        // Delete from appointments
+        $sqlQueryAppointments = "DELETE FROM appointments WHERE appointment_id = :id";
+        $statementAppointments = $this->_dbHandle->prepare($sqlQueryAppointments);
+        $resultAppointments = $statementAppointments->execute([':id' => $id]);
+
+        // Check results before committing
+        if ($resultServiceStatus && $resultAppointments) {
+            $this->_dbHandle->commit();
+            return true;
+        }
+
+        // Rollback if either operation fails
+        $this->_dbHandle->rollBack();
+        return false;
+    }
+
 }
 
 // Example usage

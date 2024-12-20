@@ -118,7 +118,13 @@ $jsonAppointments = json_encode($appointments);
                     echo "<div class='d-flex gap-3 justify-content-center'>";
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#updateStatusModal'><i class='bi bi-pen-fill'></i></button>";
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#detailModal'><i class='bi bi-eye-fill'></i></button>";
-                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#deleteModal'><i class='bi bi-trash3-fill'></i></button>";
+                    echo "<button type='button' class='btn btn-sm action-button'
+                                data-bs-toggle='modal'
+                                data-bs-target='#deleteModal'
+                                data-appointment-id='{$appointment['appointment_id']}'
+                                onclick='setappointment_id(event)'>
+                            <i class='bi bi-trash3-fill'></i>
+                        </button>";
                     echo "</div>";
                     echo "</td>";
                     echo "</tr>";
@@ -250,20 +256,23 @@ $jsonAppointments = json_encode($appointments);
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
-                <h5 class="modal-title w-100" id="deleteModalLabel">Delete Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3 d-flex align-items-center">
-                    Are you sure want to create delete the selected appointment.
+            <form id="deleteForm" method="post" action="index.php?page=admin-dashboard">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="deleteModalLabel">Delete Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="text-center mt-4">
-                    <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
-                            data-bs-dismiss="modal" onclick="">Confirm
-                    </button>
+                <div class="modal-body">
+                    <div class="mb-3 d-flex align-items-center">
+                        Are you sure want to delete the selected appointment.
+                    </div>
+                    <!-- Hidden input to hold the appointment ID -->
+                    <input type="hidden" name="appointmentId" id="deleteAppointmentId">
+                    <div class="text-center mt-4">
+                        <button type="button" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                                data-bs-dismiss="modal" onclick="submitDeleteForm()">Confirm
+                        </button>
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

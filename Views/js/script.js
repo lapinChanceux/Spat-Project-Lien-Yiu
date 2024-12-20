@@ -200,4 +200,20 @@ function filterAndSortAppointments() {
     });
 }
 
+//Delete script
+function setappointment_id(event) {
+    let button = event.currentTarget; // Button that triggered the modal
+    let appointmentId = button.getAttribute('data-appointment-id'); // Get the appointment ID from the button
+    let deleteAppointmentId = document.getElementById('deleteAppointmentId'); // Get the hidden input field
+    deleteAppointmentId.value = appointmentId; // Set the value of the hidden input to the appointment ID
+}
+
+// Submit the delete form
+function submitDeleteForm() {
+    document.getElementById('deleteForm').submit();
+}
+
+
+
+
 
