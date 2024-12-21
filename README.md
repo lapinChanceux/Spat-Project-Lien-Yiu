@@ -31,5 +31,6 @@ View, Display and Cancel An Appointment
 5. A check box will appear for the user to click to comfirm cancelation.
 6. An email would be send to the user to notify the cancelation of the appointment.
 
-
+Admin
+X7p!v2
 TBC..
