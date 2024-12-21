@@ -6,7 +6,7 @@ class LoginModel {
     public function login($username, $password)
     {
         $db = Database::getInstance()->getdbConnection();
-        $query = "SELECT * FROM Users WHERE info = :username";
+        $query = "SELECT * FROM Users WHERE username = :username";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':username', $username); //Bind the username parameter
         $stmt->execute();
