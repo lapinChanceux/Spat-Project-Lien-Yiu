@@ -1,7 +1,6 @@
 <?php
 
 require_once('Controllers/AppointmentsController.php');
-require_once('Controllers/LoginController.php');
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
@@ -19,29 +18,8 @@ if ($page === 'home') {
     include 'Views/home.phtml';
 } elseif ($page === 'admin-dashboard') { // Admin dashboard route
     $controller = new AppointmentsController();
-    // Fetch appointments and display them
-    $data = $controller->getAppointments();
-    $appointments = $data['appointments'];
-    $appointmentsCount = $data['appointmentsCount'];
-    $pendingCount = $data['pendingCount'];
-    $onServiceCount = $data['onServiceCount'];
-    $completedCount = $data['completedCount'];
-    $pendingCountToday = $data['pendingCountToday'];
-    $onServiceCountToday = $data['onServiceCountToday'];
-    $completedCountToday = $data['completedCountToday'];
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['login'])) {
-            $controller = new LoginController();
-            $loginSuccess = $controller->handleLogin($_POST); // Handle login attempt and get success/failure
-            if ($loginSuccess) {
-                include 'Views/admin-dashboard.phtml';
-            } else {
-                $controller->loginFail();
-                include 'Views/home.phtml';
-                exit; // Stop further code execution
-            }
-        }
         if (isset($_POST['updateStatus'])) {
             $appointmentId = $_POST['appointmentId'];
             $status = $_POST['status'];
@@ -60,12 +38,18 @@ if ($page === 'home') {
         exit;
     }
 
-} else if ($page === 'logout') {
-    // Logout logic
-    session_unset(); // Unset all session variables
-    session_destroy(); // Destroy the session
-    header('Location: index.php'); // Redirect to home after logout
-    exit;
+
+    // Fetch appointments and display them
+    $data = $controller->getAppointments();
+    $appointments = $data['appointments'];
+    $appointmentsCount = $data['appointmentsCount'];
+    $pendingCount = $data['pendingCount'];
+    $onServiceCount = $data['onServiceCount'];
+    $completedCount = $data['completedCount'];
+    $pendingCountToday = $data['pendingCountToday'];
+    $onServiceCountToday = $data['onServiceCountToday'];
+    $completedCountToday = $data['completedCountToday'];
+    include 'Views/admin-dashboard.phtml';
 } else {
     echo "Page not found.";
 }
