@@ -51,6 +51,6 @@ if ($page === 'home') {
     $completedCountToday = $data['completedCountToday'];
     include 'Views/admin-dashboard.phtml';
 } else {
-    echo "Page not found.";
+    echo "Page not found."; 
 }
 
