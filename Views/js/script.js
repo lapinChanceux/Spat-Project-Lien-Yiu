@@ -22,60 +22,6 @@ function redirectToSection() {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const visitorCountElement = document.getElementById("visitor-count");
-    const storageKey = "homepage-visit-count";
-
-
-    // Get the current visit count from localStorage or initialize it
-    let visitCount = localStorage.getItem(storageKey);
-    visitCount = visitCount ? parseInt(visitCount, 10) : 0;
-
-
-    // Increment the count
-    visitCount += 1;
-
-
-    // Save the updated count back to localStorage
-    localStorage.setItem(storageKey, visitCount);
-
-
-    // Animate the count
-    function animateVisitorCount(targetCount) {
-        let startCount = 0;
-        const duration = 2000; // Duration of animation in milliseconds
-        const increment = Math.ceil(targetCount / (duration / 50)); // Increment value per frame
-
-
-        const interval = setInterval(() => {
-            startCount += increment;
-            if (startCount >= targetCount) {
-                startCount = targetCount;
-                clearInterval(interval);
-            }
-            visitorCountElement.textContent = startCount.toLocaleString();
-        }, 50);
-    }
-
-
-    // Trigger the animation only when the visitor count is in view
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    animateVisitorCount(visitCount);
-                    observer.disconnect(); // Stop observing after the animation
-                }
-            });
-        },
-        {
-            threshold: 0.5, // Trigger when 50% of the element is visible
-        }
-    );
-
-
-    observer.observe(visitorCountElement);
-});
 
 //Update Appointment Status
 document.addEventListener('DOMContentLoaded', () => {
@@ -198,31 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
-document.getElementById('searchBox').addEventListener('keyup', filterAndSortAppointments);
-document.getElementById('sortBy').addEventListener('change', filterAndSortAppointments);
 
-function filterAndSortAppointments() {
-    const searchValue = document.getElementById('searchBox').value.toLowerCase();
-    const sortByValue = document.getElementById('sortBy').value;
-
-    // Get all rows in the table
-    const tableRows = document.querySelectorAll('.appointment-table tbody tr');
-
-    tableRows.forEach(row => {
-        const columns = row.querySelectorAll('td');
-        const rowText = Array.from(columns).map(col => col.textContent.toLowerCase()).join(' ');
-
-        // Check if the row matches the search query
-        const matchesSearch = rowText.includes(searchValue);
-
-        // Check if the row matches the sort filter (if selected)
-        const statusColumnIndex = 8; // Adjust if the "Status" column index changes
-        const matchesSort = sortByValue === '' || columns[statusColumnIndex]?.textContent.trim().toLowerCase() === sortByValue.toLowerCase();
-
-        // Show or hide the row based on the conditions
-        row.style.display = matchesSearch && matchesSort ? '' : 'none';
-    });
-}
 
 //Delete script
 function setappointment_id(event) {
@@ -251,6 +173,7 @@ function populateDetailModal(event) {
     modalBody.innerHTML = `<p>Hi Admin, <strong>${name}</strong> has an appointment with car place plate 
             <strong>${carNumber}</strong> on <strong>${date}</strong>.</p>`;
 }
+
 
 
 
