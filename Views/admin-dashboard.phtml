@@ -1,10 +1,10 @@
 <?php
-include 'template/header.phtml';
+include 'template/header-admin.phtml';
 $jsonAppointments = json_encode($appointments);
 ?>
 
 <section id="dashboard-section" class="container-fluid dashboard-section"
-         style="background-image: url('/Views/images/home-background.png')">
+         style="background-image: url('/Views/images/admin-background.png')">
     <div class="d-flex w-100 justify-content-between dashboard-container">
         <div>
             <h1>Welcome Back, <br><span style="color: #ff8802;">Admin</span></h1>
@@ -12,30 +12,6 @@ $jsonAppointments = json_encode($appointments);
             <p>Ready to take charge of your day? Keep track<br>of appointment,
                 update statuses, and ensure <br>every thing runs smoothly</p>
             <a href="index.php?page=admin-dashboard#appointment-section" class="btn btn-primary btn-sm custom-button">View Appointment</a>
-        </div>
-
-        <div class="summary-section w-md-100" style="width: 40%; text-align: center">
-            <h5 class="mb-3">Today's Appointment Summary</h5>
-            <div class="px-4 mb-4 py-3 summary-border">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="summary-info">Pending Appointment</div>
-                    <div class="summary-detail"><?php echo $pendingCountToday; ?></div>
-                </div>
-            </div>
-
-            <div class="px-4 mb-4 py-3" style="border-radius: 25px; background: #2f354b;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="summary-info">On-Service Appointment</div>
-                    <div class="summary-detail"><?php echo $onServiceCountToday; ?></div>
-                </div>
-            </div>
-
-            <div class="px-4 py-3" style="border-radius: 25px; background: #2f354b;">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="summary-info">Completed Appointment</div>
-                    <div class="summary-detail"><?php echo $completedCountToday; ?></div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
