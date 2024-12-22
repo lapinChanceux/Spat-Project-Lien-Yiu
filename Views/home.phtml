@@ -292,15 +292,32 @@ include 'template/header.phtml';
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <p>Mr/Ms <strong id="confirmationModalName"></strong>, your booking is confirmed with car number
+                    <p>Mr/Ms <strong id="confirmationModalName"></strong>, your appointment references number is <strong id="confirmationModalId"></strong>, confirmed with car number
                         <strong id="confirmationModalCarNumber"></strong> on <strong id="confirmationModalDate"></strong>.</p>
                     <p>If you wish to cancel your appointment, click the button below.</p>
                 </div>
-                <div class="text-center mt-4">
-                    <button type="button" class="btn btn-danger btn-sm custom-button mt-3 mb-3">Cancel Appointment
-                    </button>
-                    <button type="button" class="btn btn-secondary btn-sm custom-button mt-3 mb-3"
-                            data-bs-dismiss="modal">Back
+                <div class="text-center mt-5">
+                    <!-- Checkbox Confirmation -->
+                    <div id="checkboxConfirmation" class="d-none">
+                        <div class="form-check text-start">
+                            <input class="form-check-input" type="checkbox" id="confirmCheckbox" style="margin-top: 3px;">
+                            <label class="form-check-label" for="confirmCheckbox">
+                                I confirm that I want to cancel the appointment.
+                            </label>
+                        </div>
+                        <form id="cancelAppointmentForm" method="POST" action="index.php">
+                            <input type="hidden" name="cancelAppointment" value="1"> <!-- This identifies the form action -->
+                            <input type="hidden" name="appointmentId" id="appointmentIdInput" value="">
+                            <button type="submit" class="btn btn-danger btn-sm custom-button mt-5 mb-3" id="confirmCancel" disabled>
+                                Confirm Cancellation
+                            </button>
+                        </form>
+
+
+                    </div>
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-danger btn-sm custom-button mt-2 mb-3" id="cancelButton">
+                        Cancel Appointment
                     </button>
                 </div>
             </div>
