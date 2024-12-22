@@ -28,6 +28,7 @@
             <div class="col-12 col-sm-6 col-md-3 col-lg-2 footer-section">
                 <h5>Visitor Count</h5>
                 <span id="visitor-count" style="font-size: 20px; font-weight: bold;">0</span>
+
             </div>
         </div>
 
@@ -81,6 +82,107 @@
         });
     });
 
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const cancelButton = document.getElementById('cancelButton');
+        const checkboxConfirmation = document.getElementById('checkboxConfirmation');
+        const confirmCheckbox = document.getElementById('confirmCheckbox');
+        const confirmCancel = document.getElementById('confirmCancel');
+        const appointmentIdInput = document.getElementById('appointmentIdInput'); // Hidden input in the form
+
+        // Show checkbox and confirmation button when "Cancel Appointment" is clicked
+        cancelButton.addEventListener('click', function () {
+            cancelButton.classList.add('d-none'); // Hide the "Cancel Appointment" button
+            checkboxConfirmation.classList.remove('d-none'); // Show the confirmation section
+
+            // Populate the hidden input with the appointment ID
+            const appointmentId = document.getElementById('confirmationModalId').textContent;
+            appointmentIdInput.value = appointmentId;
+        });
+
+        // Enable the "Confirm Cancellation" button only when the checkbox is checked
+        confirmCheckbox.addEventListener('change', function () {
+            confirmCancel.disabled = !confirmCheckbox.checked;
+        });
+
+        // Handle the confirmation action when "Confirm Cancellation" is clicked
+        confirmCancel.addEventListener('click', function () {
+            // Submit the form to cancel the appointment
+            document.getElementById('cancelAppointmentForm').submit();
+        });
+    });
+
+    // Function to animate the visitor count
+    function animateVisitorCount(targetCount) {
+        const countElement = document.getElementById('visitor-count');
+        const currentCount = parseInt(countElement.textContent, 10) || 0;
+        const duration = 500; // Duration of animation in milliseconds
+        const steps = 50; // Number of animation steps
+        const increment = (targetCount - currentCount) / steps;
+        let currentStep = 0;
+
+        const interval = setInterval(() => {
+            currentStep++;
+            const newCount = Math.round(currentCount + increment * currentStep);
+            countElement.textContent = newCount;
+
+            // Stop animation when target is reached
+            if (currentStep >= steps) {
+                clearInterval(interval);
+                countElement.textContent = targetCount; // Ensure final count is exact
+            }
+        }, duration / steps);
+    }
+
+    // Visitor count from the server
+    const visitorCountFromServer = <?php echo htmlspecialchars($visitorCount, ENT_QUOTES, 'UTF-8'); ?>;
+
+    // Observer to detect when the visitor count element is in the viewport
+    const countElement = document.getElementById('visitor-count');
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Start the animation when the element is in the viewport
+                    animateVisitorCount(visitorCountFromServer);
+                    // Unobserve the element to prevent repeated animations
+                    observer.unobserve(countElement);
+                }
+            });
+        },
+        { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    // Observe the visitor count element
+    observer.observe(countElement);
+
+
+
+    document.getElementById('searchBox').addEventListener('keyup', filterAndSortAppointments);
+    document.getElementById('sortBy').addEventListener('change', filterAndSortAppointments);
+
+    function filterAndSortAppointments() {
+        const searchValue = document.getElementById('searchBox').value.toLowerCase();
+        const sortByValue = document.getElementById('sortBy').value;
+
+        // Get all rows in the table
+        const tableRows = document.querySelectorAll('.appointment-table tbody tr');
+
+        tableRows.forEach(row => {
+            const columns = row.querySelectorAll('td');
+            const rowText = Array.from(columns).map(col => col.textContent.toLowerCase()).join(' ');
+
+            // Check if the row matches the search query
+            const matchesSearch = rowText.includes(searchValue);
+
+            // Check if the row matches the sort filter (if selected)
+            const statusColumnIndex = 8; // Adjust if the "Status" column index changes
+            const matchesSort = sortByValue === '' || columns[statusColumnIndex]?.textContent.trim().toLowerCase() === sortByValue.toLowerCase();
+
+            // Show or hide the row based on the conditions
+            row.style.display = matchesSearch && matchesSort ? '' : 'none';
+        });
+    }
 
 </script>
 <script>
