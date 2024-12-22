@@ -168,13 +168,13 @@ class AppointmentsController
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
             $mail->SMTPAuth = true;
-            $mail->Username = 'lwt010110@gmail.com'; // Your Gmail address
-            $mail->Password = 'soxsesvlrloslpxo';  // Your Gmail App Password
+            $mail->Username = 'lienyiuappointment@gmail.com'; // Your Gmail address
+            $mail->Password = 'leanyiu@123456';  // Your Gmail App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             // Email Details
-            $mail->setFrom('lwt010110@gmail.com', 'WeiTing Lim');
+            $mail->setFrom('lienyiuappointment@gmail.com', 'Lien Yiu Customer Support');
             $mail->addAddress($email); // Customer email
             $mail->Subject = 'Appointment Confirmation - Lien Yiu Battery & Tyre Sdn Bhd';
             $mail->Body = "Dear $fullName,\n\nYour appointment has been successfully booked for $appointmentDate at $appointmentTime.\n\nThank you for choosing us!\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
