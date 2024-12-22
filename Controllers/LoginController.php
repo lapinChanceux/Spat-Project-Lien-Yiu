@@ -25,8 +25,6 @@ class LoginController {
         $user = $loginModel->login($username, $password);
 
         if ($user) {
-            // Login successful: Store user data in session
-            $_SESSION['user'] = $user; // Store user details in session
             if ($rememberMe) {
                 setcookie("username", $username, time() + 3600, "/");
                 setcookie("password", $password, time() + 3600, "/");
