@@ -1,6 +1,7 @@
 <?php
 // AppointmentsControllers.php
 require_once 'Model/AppointmentsDataSetModel.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -121,11 +122,11 @@ class AppointmentsController
         return $this->model->deleteAppointmentById($appointmentId);
     }
 
-    public function checkBookingAppointment($carNumber)
-    {
+    public function checkBookingAppointment($carNumber){
         $appointment = $this->model->getLatestAppointmentByCarNumber($carNumber);
 
         if ($appointment) {
+            $appointmentId = htmlspecialchars($appointment['appointment_id']);
             $customerName = htmlspecialchars($appointment['customer_name']);
             $carNum = htmlspecialchars($appointment['car_number']);
             $appointmentDate = htmlspecialchars($appointment['appointment_date']);
@@ -138,6 +139,7 @@ class AppointmentsController
                 confirmModal.show();
                 
                 // Fill in the modal with appointment details
+                document.getElementById("confirmationModalId").textContent = "' . $appointmentId . '";
                 document.getElementById("confirmationModalName").textContent = "' . $customerName . '";
                 document.getElementById("confirmationModalCarNumber").textContent = "' . $carNum . '";
                 document.getElementById("confirmationModalDate").textContent = "' . $appointmentDate . ' ' . $appointmentTime . '";
@@ -153,6 +155,30 @@ class AppointmentsController
             resultModal.show();
         });
     </script>';
+        }
+    }
+
+    public function cancelAppointment()
+    {
+        // Check if the request method is POST and appointmentId is set
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointmentId'])) {
+            // Sanitize the appointment ID to prevent injection
+            $appointmentId = htmlspecialchars($_POST['appointmentId']);
+
+            // Debugging: Log the appointment ID
+            error_log('Form submitted with appointment ID: ' . $appointmentId);
+
+            // Call the deleteAppointment method
+            $result = $this->deleteAppointment($appointmentId);
+
+            // Redirect or show feedback based on the result
+            if ($result) {
+                header('Location: index.php?page=home&status=success');
+                exit;
+            } else {
+                header('Location: index.php?page=home&status=failure');
+                exit;
+            }
         }
     }
 
@@ -187,6 +213,8 @@ class AppointmentsController
         }
     }
 }
+
+
 // Instantiate the controller
 $controller = new AppointmentsController();
 
