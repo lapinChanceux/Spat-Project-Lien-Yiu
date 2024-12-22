@@ -1,6 +1,9 @@
 <?php
 // AppointmentsControllers.php
 require_once 'Model/AppointmentsDataSetModel.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 // Set the timezone to Malaysia
 date_default_timezone_set('Asia/Kuala_Lumpur');
@@ -80,6 +83,8 @@ class AppointmentsController
                 $success = $this->model->insertAppointment($fullName, $carNumber, $carBrand, $carModel, $appointmentDate, $appointmentTime, $phoneNumber, $email, $remark);
 
                 if ($success) {
+                    // Send email after successful appointment booking
+                    $this->sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime);
                     echo '<script>
                     document.addEventListener("DOMContentLoaded", function() {
                         var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
@@ -116,7 +121,8 @@ class AppointmentsController
         return $this->model->deleteAppointmentById($appointmentId);
     }
 
-    public function checkBookingAppointment($carNumber){
+    public function checkBookingAppointment($carNumber)
+    {
         $appointment = $this->model->getLatestAppointmentByCarNumber($carNumber);
 
         if ($appointment) {
@@ -149,8 +155,38 @@ class AppointmentsController
     </script>';
         }
     }
-}
 
+    // Function to send the appointment email
+    private function sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime)
+    {
+        require 'vendor/autoload.php';
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // SMTP Configuration
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
+            $mail->SMTPAuth = true;
+            $mail->Username = 'lienyiuappointment@gmail.com'; // Your Gmail address
+            $mail->Password = 'leanyiu@123456';  // Your Gmail App Password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+
+            // Email Details
+            $mail->setFrom('lienyiuappointment@gmail.com', 'Lien Yiu Customer Support');
+            $mail->addAddress($email); // Customer email
+            $mail->Subject = 'Appointment Confirmation - Lien Yiu Battery & Tyre Sdn Bhd';
+            $mail->Body = "Dear $fullName,\n\nYour appointment has been successfully booked for $appointmentDate at $appointmentTime.\n\nThank you for choosing us!\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
+
+            // Send Email
+            $mail->send();
+            echo 'Email sent successfully.';
+        } catch (Exception $e) {
+            echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+}
 // Instantiate the controller
 $controller = new AppointmentsController();
 
