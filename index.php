@@ -65,9 +65,7 @@ if ($page === 'home') {
     $pendingCount = $data['pendingCount'];
     $onServiceCount = $data['onServiceCount'];
     $completedCount = $data['completedCount'];
-    $pendingCountToday = $data['pendingCountToday'];
-    $onServiceCountToday = $data['onServiceCountToday'];
-    $completedCountToday = $data['completedCountToday'];
+
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['updateStatus'])) {

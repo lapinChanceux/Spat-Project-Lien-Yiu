@@ -175,6 +175,30 @@ function populateDetailModal(event) {
 }
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const appointmentTable = document.getElementById("appointmentTable");
+    const rows = appointmentTable.querySelectorAll("tbody tr");
+    const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            // Get the status to filter from the clicked link
+            const status = this.getAttribute("href").split("=")[1] || "";
+
+            // Filter table rows
+            rows.forEach(row => {
+                const rowStatus = row.getAttribute("data-status");
+                if (status === "" || rowStatus === status) {
+                    row.style.display = ""; // Show matching rows
+                } else {
+                    row.style.display = "none"; // Hide non-matching rows
+                }
+            });
+        });
+    });
+});
 
 
 

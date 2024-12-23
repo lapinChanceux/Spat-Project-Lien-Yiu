@@ -37,20 +37,16 @@ class AppointmentsController
         $appointments = $this->model->getAppointments();
         $appointmentsCount = $this->model->getAppointmentsCount();
         $pendingCount = $this->model->getAppointmentsCountByStatus('Pending');
-        $onServiceCount = $this->model->getAppointmentsCountByStatus('On-Service');
+        $onServiceCount = $this->model->getAppointmentsCountByStatus('On Service');
         $completedCount = $this->model->getAppointmentsCountByStatus('Completed');
-        $pendingCountToday = $this->model->getAppointmentsCountByStatusToday('Pending');
-        $onServiceCountToday = $this->model->getAppointmentsCountByStatusToday('On-Service');
-        $completedCountToday = $this->model->getAppointmentsCountByStatusToday('Completed');
+
         return [
             'appointments' => $appointments,
             'appointmentsCount' => $appointmentsCount,
             'pendingCount' => $pendingCount,
             'onServiceCount' => $onServiceCount,
             'completedCount' => $completedCount,
-            'pendingCountToday' => $pendingCountToday,
-            'onServiceCountToday' => $onServiceCountToday,
-            'completedCountToday' => $completedCountToday
+
         ];
     }
 

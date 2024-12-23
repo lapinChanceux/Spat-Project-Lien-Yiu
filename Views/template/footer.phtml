@@ -184,6 +184,136 @@
         });
     }
 
+
+    // Pagination
+    document.addEventListener('DOMContentLoaded', function () {
+        const rowsPerPage = 5; // Number of rows per page
+        const table = document.getElementById('appointmentTable');
+        const paginationControls = document.getElementById('paginationControls');
+        const rows = Array.from(table.querySelectorAll('tbody tr')); // Convert NodeList to Array
+        let filteredRows = rows; // Default to all rows
+        let totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+
+        // Function to show rows for the current page
+        function showPage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = page * rowsPerPage;
+            filteredRows.forEach((row, index) => {
+                row.style.display = (index >= start && index < end) ? '' : 'none';
+            });
+        }
+
+        // Function to create pagination controls with active button highlighting
+        function setupPagination() {
+            paginationControls.innerHTML = ''; // Clear previous pagination buttons
+
+            // Create Left Arrow Button
+            const leftArrow = document.createElement('button');
+            leftArrow.innerHTML = '&laquo;'; // HTML entity for left arrow
+            leftArrow.classList.add('btn', 'btn-primary', 'mx-1', 'pagination-button');
+            leftArrow.addEventListener('click', () => {
+                const activePage = getActivePage();
+                if (activePage > 1) {
+                    showPage(activePage - 1);
+                    setActiveButton(activePage - 1);
+                }
+            });
+            paginationControls.appendChild(leftArrow);
+
+            // Create Numbered Pagination Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement('button');
+                button.textContent = i;
+                button.classList.add('btn', 'btn-primary', 'mx-1', 'pagination-button');
+                button.addEventListener('click', () => {
+                    showPage(i);
+                    setActiveButton(i);
+                });
+                paginationControls.appendChild(button);
+            }
+
+            // Create Right Arrow Button
+            const rightArrow = document.createElement('button');
+            rightArrow.innerHTML = '&raquo;'; // HTML entity for right arrow
+            rightArrow.classList.add('btn', 'btn-primary', 'mx-1', 'pagination-button');
+            rightArrow.addEventListener('click', () => {
+                const activePage = getActivePage();
+                if (activePage < totalPages) {
+                    showPage(activePage + 1);
+                    setActiveButton(activePage + 1);
+                }
+            });
+            paginationControls.appendChild(rightArrow);
+        }
+
+        // Function to get the current active page
+        function getActivePage() {
+            const buttons = paginationControls.getElementsByClassName('pagination-button');
+            for (let i = 0; i < buttons.length; i++) {
+                if (buttons[i].classList.contains('active')) {
+                    return parseInt(buttons[i].textContent);
+                }
+            }
+            return 1; // Default to first page if no active button
+        }
+
+        // Function to set the active page button
+        function setActiveButton(activePage) {
+            const buttons = paginationControls.getElementsByClassName('pagination-button');
+            Array.from(buttons).forEach((button) => {
+                const buttonPage = parseInt(button.textContent);
+                button.classList.toggle('active', buttonPage === activePage);
+            });
+        }
+
+        // Initialize pagination
+        function initPagination() {
+            totalPages = Math.ceil(filteredRows.length / rowsPerPage); // Recalculate total pages
+            if (filteredRows.length > 0) {
+                showPage(1); // Show the first page by default
+                setupPagination();
+                setActiveButton(1); // Set the first page as active
+            } else {
+                paginationControls.innerHTML = '<p>No records to display</p>';
+            }
+        }
+
+        // Filter functionality with pagination update
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const status = this.getAttribute('data-status');
+                filteredRows = rows.filter(row => {
+                    const rowStatus = row.getAttribute('data-status');
+                    return status === "" || rowStatus === status;
+                });
+
+                // Update pagination after filtering
+                initPagination();
+            });
+        });
+
+        // Show all records and apply pagination on initial page load
+        initPagination();
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", function (event) {
+                const status = this.getAttribute("data-status");
+                if (status) {
+                    // Filter the table rows by status
+                    const rows = document.querySelectorAll("#appointmentTable tbody tr");
+                    rows.forEach(row => {
+                        const rowStatus = row.getAttribute("data-status");
+                        row.style.display = (rowStatus === status || status === "") ? "" : "none";
+                    });
+                }
+            });
+        });
+    });
+
 </script>
 <script>
     const carData = {

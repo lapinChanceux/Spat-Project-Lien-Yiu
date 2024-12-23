@@ -431,6 +431,20 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     color: #ff8802;
 }
 
+.pagination-button {
+    width: 40px; /* Set your desired width */
+    text-align: center; /* Center the text */
+    color: #ff8802;
+    border: 2px solid #ff8802;
+    background: none;
+}
+
+.pagination-button.active, .pagination-button:hover {
+    background-color: #ff8802;
+    color: #151a26;
+    border: 2px solid #ff8802;
+}
+
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
     .home-container {

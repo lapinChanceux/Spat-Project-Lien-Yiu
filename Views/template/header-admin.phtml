@@ -20,23 +20,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="">Dashboard</a>
+                    <a class="nav-link" href="index.php?page=admin-dashboard#dashboard-section" data-status="">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="#appointment-section" data-status="Pending">
                         Pending<span
-                                style="font-size: 10px; vertical-align: super;"> <?php echo $pendingCountToday; ?></span>
+                                style="font-size: 10px; vertical-align: super;"> <?php echo $pendingCount; ?></span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="">On-Service <span
-                                style="font-size: 10px; vertical-align: super;"> <?php echo $onServiceCountToday; ?></span>
+                    <a class="nav-link" href="#appointment-section" data-status="On Service">On-Service <span
+                                style="font-size: 10px; vertical-align: super;"> <?php echo $onServiceCount; ?></span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Completed <span
-                                style="font-size: 10px; vertical-align: super;"> <?php echo $completedCountToday; ?></span>
+                    <a class="nav-link" href="#appointment-section" data-status="Completed">Completed <span
+                                style="font-size: 10px; vertical-align: super;"> <?php echo $completedCount; ?></span>
                     </a>
                 </li>
             </ul>

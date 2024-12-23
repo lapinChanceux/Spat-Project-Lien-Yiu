@@ -61,7 +61,7 @@ $jsonAppointments = json_encode($appointments);
         <?php
         function displayAppointments($appointments)
         {
-            echo "<table class='table table-borderless mb-0 appointment-table'>";
+            echo '<table id="appointmentTable" class="table table-borderless mb-0 appointment-table">';
             echo "<thead class='table-dark'>";
             echo "<tr>";
             echo "<th>Name</th>";
@@ -80,7 +80,7 @@ $jsonAppointments = json_encode($appointments);
 
             if (!empty($appointments) && is_array($appointments)) {
                 foreach ($appointments as $appointment) {
-                    echo "<tr>";
+                    echo "<tr data-status='" . htmlspecialchars($appointment['status']) . "'>";
                     echo "<td>" . htmlspecialchars(isset($appointment['customer_name']) ? $appointment['customer_name'] : '') . "</td>";
                     echo "<td>" . htmlspecialchars(isset($appointment['car_number']) ? $appointment['car_number'] : '') . "</td>";
                     echo "<td>" . htmlspecialchars(isset($appointment['car_type']) ? $appointment['car_type'] : '') . "</td>";
@@ -93,14 +93,8 @@ $jsonAppointments = json_encode($appointments);
                     echo "<td>";
                     echo "<div class='d-flex gap-3 justify-content-center'>";
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#updateStatusModal' data-appointment-id='" . htmlspecialchars($appointment['appointment_id']) . "' data-status='" . htmlspecialchars($appointment['status']) . "'><i class='bi bi-pen-fill'></i></button>";
-                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#detailModal' data-name='{$appointment['customer_name']}' data-car-number='{$appointment['car_number']}' data-date='{$appointment['appointment_date']}'onclick='populateDetailModal(event)'><i class='bi bi-eye-fill'></i></button>";
-                    echo "<button type='button' class='btn btn-sm action-button'
-                                data-bs-toggle='modal'
-                                data-bs-target='#deleteModal'
-                                data-appointment-id='{$appointment['appointment_id']}'
-                                onclick='setappointment_id(event)'>
-                            <i class='bi bi-trash3-fill'></i>
-                        </button>";
+                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#detailModal' data-name='{$appointment['customer_name']}' data-car-number='{$appointment['car_number']}' data-date='{$appointment['appointment_date']}' onclick='populateDetailModal(event)'><i class='bi bi-eye-fill'></i></button>";
+                    echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#deleteModal' data-appointment-id='{$appointment['appointment_id']}' onclick='setappointment_id(event)'><i class='bi bi-trash3-fill'></i></button>";
                     echo "</div>";
                     echo "</td>";
                     echo "</tr>";
@@ -120,7 +114,7 @@ $jsonAppointments = json_encode($appointments);
             echo "<p>No appointments found.</p>";
         }
         ?>
-
+        <div id="paginationControls" class="pagination-container mt-3 text-end"></div>
 
     </div>
 </section>
