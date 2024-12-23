@@ -445,6 +445,32 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     border: 2px solid #ff8802;
 }
 
+.service-progress .table-dark th {
+    background: #2f354b;
+}
+
+.nav-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.animated-text {
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 4s steps(30, end), blink 0.5s step-end infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+
 /* Media Query: Desktops */
 @media screen and (min-width: 769px) {
     .home-container {

@@ -3,6 +3,7 @@
 require_once('Controllers/AppointmentsController.php');
 require_once('Controllers/LoginController.php');
 require_once 'Controllers/VisitorController.php';
+require_once 'Controllers/DisplayServiceController.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
@@ -85,6 +86,17 @@ if ($page === 'home') {
         exit;
     }
     include 'Views/admin-dashboard.phtml';
+
+} elseif ($page === 'service-progress') {
+    $controller = new DisplayServiceController();
+    $serviceData = $controller->getServiceData();
+
+    if (isset($_GET['fetch']) && $_GET['fetch'] === 'data') {
+        header('Content-Type: application/json');
+        echo json_encode($serviceData);
+        exit;
+    }
+    include 'Views/service-progress.phtml';
 
 } elseif ($page === 'logout') {
     session_unset();

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Date</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/Views/css/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-md fixed-top">
+    <div class="container-fluid px-5">
+        <span class="navbar-brand">Lien Yiu <br>
+            <span>Battery & Tyre Sdn Bhd</span></span>
+        <div class="navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto nav-progress">
+                <li class="nav-item">
+                    <?php
+                    // Set your desired timezone
+                    date_default_timezone_set('Asia/Kuala_Lumpur');
+                    // Format the current date and time with commas
+                    $currentDateTime = date('l, d F Y, h:i A'); // e.g., Monday, 23 December 2024, 08:05 PM
+                    ?>
+                    <span id="animatedDate" class="nav-link disabled animated-text" style="font-weight: bold; font-size: 20px;"><?php echo $currentDateTime; ?></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+
+</script>
+
+<section id="service-progress" class="container-fluid service-progress">
+    <div class="service-progress-container" style="margin-top: 7%;">
+        <div id="serviceCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- Pending Service -->
+                <div class="carousel-item active">
+                    <h1><span style="color: #ff8802; font-weight: bold">Pending Service</span></h1>
+                    <div class="table-container">
+                        <table class="table table-striped table-bordered table-hover mt-4">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Service Requested</th>
+                                <th>Appointment Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="pendingTable">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+                <!-- On Service -->
+                <div class="carousel-item">
+                    <h1><span style="color: #ff8802; font-weight: bold">On Service</span></h1>
+                    <div class="table-container">
+                        <table class="table table-striped table-bordered table-hover mt-4">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Service Requested</th>
+                                <th>Appointment Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="onServiceTable">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Complete -->
+                <div class="carousel-item">
+                    <h1><span style="color: #ff8802; font-weight: bold">Complete</span></h1>
+                    <div class="table-container">
+                        <table class="table table-striped table-bordered table-hover mt-4">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Service Requested</th>
+                                <th>Appointment Time</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody id="completedTable">
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="Views/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    // Set the date content to type
+    const animatedDateElement = document.getElementById('animatedDate');
+    const dateText = animatedDateElement.innerHTML; // Fetch initial PHP-rendered date
+    animatedDateElement.innerHTML = ''; // Clear content initially
+
+    let index = 0;
+
+    function typeDate() {
+        if (index < dateText.length) {
+            animatedDateElement.innerHTML += dateText.charAt(index);
+            index++;
+            setTimeout(typeDate, 100); // Adjust typing speed here
+        } else {
+            // Reset animation for a continuous loop
+            setTimeout(() => {
+                animatedDateElement.innerHTML = '';
+                index = 0;
+                typeDate();
+            }, 2000); // Delay before restarting
+        }
+    }
+
+    // Start the typing animation
+    typeDate();
+
+    function formatTime(time) {
+        // Split the time into hours and minutes
+        const [hours, minutes] = time.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12; // Convert to 12-hour format, handling midnight
+        return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+    }
+
+    function updateTable(data, tableId) {
+        const tableBody = document.getElementById(tableId); // Get table body by ID
+        if (!tableBody) {
+            console.error(`Table with ID "${tableId}" not found.`);
+            return;
+        }
+
+        tableBody.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="6" class="text-center">No Data Available</td></tr>`;
+            return;
+        }
+
+        data.forEach((row, index) => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${row.customer_name || 'N/A'}</td>
+            <td>${row.remark || 'Misc.'}</td>
+            <td>${row.appointment_time ? formatTime(row.appointment_time) : 'N/A'}</td>
+            <td>${row.status || 'N/A'}</td>
+        `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    setInterval(() => {
+        fetch('index.php?page=service-progress&fetch=data')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                updateTable(data.pending, 'pendingTable');
+                updateTable(data.onService, 'onServiceTable');
+                updateTable(data.completed, 'completedTable');
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, 1000);
+
+
+</script>
+
+</body>
+</html>
