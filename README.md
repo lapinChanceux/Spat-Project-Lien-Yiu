@@ -2,7 +2,7 @@
 
 Login Credential
 Username: Admin
-Password: X7p!v2
+Password: 
 
 System Workflow
 -----------------------------------------
