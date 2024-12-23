@@ -190,8 +190,8 @@ class AppointmentsController
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
             $mail->SMTPAuth = true;
-            $mail->Username = 'lienyiuappointment@gmail.com'; // Your Gmail address
-            $mail->Password = 'leanyiu@123456';  // Your Gmail App Password
+            $mail->Username = ''; // Your Gmail address
+            $mail->Password = '';  // Your Gmail App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
