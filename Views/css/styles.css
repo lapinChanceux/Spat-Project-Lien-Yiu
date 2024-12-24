@@ -451,8 +451,6 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     background: #2f354b;
 }
 
-
-
 .service-progress h1{
     color: #ff8802;
     font-weight: bold;
@@ -601,6 +599,14 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
         font-size: 14px;
     }
 
+    .dashboard-section th {
+        font-size: 14px;
+    }
+
+    .dashboard-section td {
+        font-size: 14px;
+    }
+
 
 }
 
@@ -707,11 +713,11 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     }
 
     .dashboard-container h1 {
-        font-size: 25px;
+        font-size: 25px !important;
     }
 
-    .dashboard-container h1 {
-        font-size: 30px;
+    .dashboard-section h1{
+        font-size: 25px !important;
     }
 
     .dashboard-container p {
@@ -742,6 +748,22 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .service-progress td {
         font-size: 12px;
+    }
+
+    .dashboard-container{
+        height: 40vh;
+    }
+
+    .dashboard-section th {
+        font-size: 12px;
+    }
+
+    .dashboard-section td {
+        font-size: 12px;
+    }
+
+    .inner-dashboard {
+        margin-top: 15%;
     }
 
 }

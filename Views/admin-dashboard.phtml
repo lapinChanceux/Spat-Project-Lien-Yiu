@@ -6,7 +6,7 @@ $jsonAppointments = json_encode($appointments);
 <section id="dashboard-section" class="container-fluid dashboard-section"
          style="background-image: url('/Views/images/admin-background.png')">
     <div class="d-flex w-100 justify-content-between dashboard-container">
-        <div>
+        <div class="inner-dashboard">
             <h1>Welcome Back, <br><span style="color: #ff8802;">Admin</span></h1>
             <p><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;<span><?php echo $adminCurrentDate; ?></span></p>
             <p>Ready to take charge of your day? Keep track<br>of appointment,
@@ -20,10 +20,10 @@ $jsonAppointments = json_encode($appointments);
          style="background-color: #151a26">
     <div class="row text-center">
         <div class="col mt-5">
-            <h1 style="color: #ff8802; font-weight: bold">Appointment Table</h1>
+            <h1 style="color: #ff8802; font-weight: bold">Appointment Table</h1><br>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid mb-2">
         <div class="row align-items-center">
             <div class="col">
                 <div style="font-weight: bold; color: #ff8802;">
@@ -57,10 +57,12 @@ $jsonAppointments = json_encode($appointments);
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
         <?php
         function displayAppointments($appointments)
         {
+            echo '<div class="table-responsive">';
             echo '<table id="appointmentTable" class="table table-borderless mb-0 appointment-table">';
             echo "<thead class='table-dark'>";
             echo "<tr>";
@@ -105,8 +107,8 @@ $jsonAppointments = json_encode($appointments);
 
             echo "</tbody>";
             echo "</table>";
+            echo '</div>';
         }
-
 
         if (isset($appointments)) {
             displayAppointments($appointments);
@@ -115,8 +117,8 @@ $jsonAppointments = json_encode($appointments);
         }
         ?>
         <div id="paginationControls" class="pagination-container mt-3 text-end"></div>
-
     </div>
+
 </section>
 
 <!--Edit Modal-->
