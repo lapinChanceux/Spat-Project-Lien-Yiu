@@ -58,8 +58,7 @@ include 'template/header.phtml';
     </button>
 </div>
 
-<section id="services-section" class="container-fluid services-section"
-         style="background-image: url('/Views/images/card-background.png');">
+<section id="services-section" class="container-fluid services-section">
     <div class="container-fluid py-5 d-flex align-items-center justify-content-center">
         <div class="text-center">
             <h1><span style="color: #2f354b;">Our</span> Services</h1>
@@ -132,8 +131,7 @@ include 'template/header.phtml';
     </div>
 </section>
 
-<section id="about-section" class="container-fluid about-section"
-         style="background-image: url('/Views/images/about-background.png');">
+<section id="about-section" class="container-fluid about-section">
     <div class="container py-5 d-flex align-items-center justify-content-center">
         <div class="text-center about-container">
             <h1 style="color: #ff8802;">About<span style="color: #2f354b;"> Us</span></h1>
@@ -165,6 +163,85 @@ include 'template/header.phtml';
             referrerpolicy="no-referrer-when-downgrade">
     </iframe>
 </section>
+
+<section id="faq-section" class="container my-5 faq-section">
+    <h1 class="text-center mb-4">Frequently <span style="color: #2f354b;">Asked Questions</span></h1>
+    <div class="accordion" id="faqAccordion">
+        <!-- Question 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                    What services do you offer?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    We provide a comprehensive range of automotive services, including expert auto repairs,
+                    regular maintenance, premium Continental tyre sales, and specialized offerings such as engine oil changes,
+                    tyre services, and reliable battery replacements to keep your vehicle in top condition.
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    How can I book an appointment?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    You can schedule an appointment online via our <a href="index.php?page=home#appointment-section" style="color: #ff8802; font-weight: bold">booking page</a> or reach out to us directly:
+                    <br><br>Email: <a href="mailto:lienyiuappointment@gmail.com" target="_blank" rel="noopener" style="color: #ff8802; text-decoration: none;">lienyiuappointment@gmail.com</a>
+                    <br>Phone: <a href="tel:+6046572598" target="_blank" rel="noopener" style="color: #ff8802; text-decoration: none;">+604-657 2598</a>
+                </div>
+            </div>
+        </div>
+        <!-- Question 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    What are your working hours?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                 data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Opening Hours</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Monday - Friday</td>
+                            <td>9:00 AM - 6:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>9:00 AM - 1:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>Closed</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p>*Our working hours are subject to change depending on public holidays.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <!-- Modal: Book Appointment -->
 <div class="modal fade" id="bookAppointmentModal" tabindex="-1" aria-labelledby="bookAppointmentModalLabel"

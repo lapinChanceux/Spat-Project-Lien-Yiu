@@ -61,7 +61,7 @@ body {
 
 footer {
     background-color: #2f354b;
-    padding: 40px 0;
+    padding: 40px 0 11px 0;
     margin-top: auto;
     color: #fff8e9;
 }
@@ -176,14 +176,11 @@ footer .footer-section ul li a:hover {
 }
 
 .about-section {
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-size: cover;
 }
 
 .about-container {
-    padding-top: 9%;
-    padding-bottom: 9%;
+    padding-top: 6%;
+    padding-bottom: 6%;
     padding-left: 8%;
     padding-right: 8%;
     text-align: center;
@@ -265,10 +262,6 @@ footer .footer-section ul li a:hover {
 }
 
 .services-section {
-    text-align: center;
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
 }
 
 .services-section h1 {
@@ -307,8 +300,6 @@ footer .footer-section ul li a:hover {
 .modal-header {
     border-bottom: none;
     background-color: #fee1bf;
-
-
 }
 
 .modal-header h5 {
@@ -360,6 +351,48 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     border: 1px solid #ccc !important;
 }
 
+.faq-section {
+    padding-top: 6%;
+    padding-bottom: 6%;
+}
+
+.faq-section h1 {
+    font-size: 40px;
+    color: #ff8802;
+    font-weight: bold;
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'%3E%3Cpath d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/%3E%3C/svg%3E");
+    transition: all 0.5s;
+}
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23ff8802' class='bi bi-dash' viewBox='0 0 16 16'%3E%3Cpath d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z'/%3E%3C/svg%3E");
+}
+
+.accordion {
+    --bs-accordion-active-bg: #2f354b;
+    --bs-accordion-active-color: white;
+    --bs-accordion-btn-focus-box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    box-shadow: none;
+    font-weight: bold;
+}
+
+.accordion-body {
+    font-size: 15px;
+}
+
+.accordion-button{
+    font-size: 15px;
+}
+.accordion-body table tr th {
+    color: #ff8802;
+    background-color: #2f354b;
+    border: 1px #b4bcea;
+}
 
 /*Admin Dashboard*/
 .dashboard-section {
@@ -590,6 +623,10 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
         padding-top: 8%;
     }
 
+    .faq-section h1 {
+        font-size: 30px;
+    }
+
     .home-container p {
         font-size: 14px;
     }
@@ -664,6 +701,14 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
         font-size: 14px;
     }
 
+    .accordion-body {
+        font-size: 14px;
+    }
+
+    .accordion-button{
+        font-size: 14px;
+    }
+
 
 }
 
@@ -713,6 +758,11 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
         padding-right: 2%;
     }
 
+    .faq-section {
+        padding-top: 0%;
+        padding-bottom: 0%;
+    }
+
     .appointment-container,
     .appointment-container-1 {
         height: 35vh;
@@ -739,6 +789,10 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     .services-section h1 {
         font-size: 25px;
         padding-top: 2%;
+    }
+
+    .faq-section h1 {
+        font-size: 25px;
     }
 
     .services-section .card-title {
@@ -846,6 +900,14 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .inner-dashboard {
         margin-top: 15%;
+    }
+
+    .accordion-body {
+        font-size: 12px;
+    }
+
+    .accordion-button{
+        font-size: 12px;
     }
 
 }
