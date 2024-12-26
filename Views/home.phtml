@@ -2,77 +2,67 @@
 include 'template/header.phtml';
 ?>
 
-<section id="home-section" class="container-fluid home-section"
-         style="background-image: url('/Views/images/home-background.png')">
-    <div class="home-container">
-        <h1>Your Trusted <span style="color: #ff8802;">Auto <br>Repair Experts</span> <br>Since 1978</h1>
-        <p>With decades of expertise, we offer premium<br> Continental
-            tyres and reliable repairs to keep<br> your journey safe and
-            smooth.</p>
-        <button type="button" class="btn btn-primary btn-sm custom-button me-3 mt-4" data-bs-toggle="modal"
-                data-bs-target="#bookAppointmentModal">Book Now
-        </button>
+<div id="homeCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <section id="home-section" class="container-fluid home-section"
+                     style="background-image: url('/Views/images/home-background.png')">
+                <div class="home-container">
+                    <h1>Your Trusted <span style="color: #ff8802;">Auto <br>Repair Experts</span> <br>Since 1978</h1>
+                    <p>With decades of expertise, we offer premium<br> Continental
+                        tyres and reliable repairs to keep<br> your journey safe and
+                        smooth.</p>
+                    <a href="index.php?page=home#services-section" class="btn btn-primary btn-sm custom-button me-3 mt-4">Our Services
+                    </a>
+                </div>
+            </section>
+        </div>
 
-    </div>
-</section>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <section id="home-section" class="container-fluid home-section promotion-section-1"
+                     style="background-image: url('/Views/images/home-promotion-1.png')">
+                <div class="home-container home-promotion-1">
+                    <h1>Chinese New Year <br> Special <br> <span style="color: #2f354b;">Tyre & Battery</span></h1>
+                    <p>Offer valid from Jan 5 - Feb 5, <b>free installation</b>.<br>
+                        Start the new year with a smooth and safe ride!</p>
+                    <a href="index.php?page=home#appointment-section" class="btn btn-primary btn-sm custom-button me-3 mt-4">Book Now</a>
+                </div>
+            </section>
+        </div>
 
-<section id="about-section" class="container-fluid about-section"
-         style="background-image: url('/Views/images/about-background.png');">
-    <div class="container py-5 d-flex align-items-center justify-content-center">
-        <div class="text-center about-container">
-            <h1 style="color: #ff8802;">About<span style="color: black;"> Us</span></h1>
-            <p>
-                "<span style="font-weight: bold">Lien Yiu Battery & Tyre Sdn Bhd</span> has been a trusted car
-                workshop and auto repair shop in Kuala Lumpur since 1978. We specialize in tyre changing, alignment,
-                balancing, foreman repairs, engine overhauls, spare part installation, oil changes, and battery
-                services.
-            </p>
-            <p>
-                Continental Tyre Malaysia, with over 150 years of industry expertise, is synonymous with premium
-                quality and German technology. Preferred by over 800 car manufacturers, we deliver top-notch service
-                and products. Safety is our utmost priority, ensuring each Continental tyre offers unparalleled
-                grip, stability, and durability. Whether navigating city streets or rugged terrain, our tyres are
-                designed to keep you safe."
-            </p>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <section id="home-section" class="container-fluid home-section promotion-section-2"
+                     style="background-image: url('/Views/images/home-promotion-2.png')">
+                <div class="home-container home-promotion-2">
+                    <h1>Christmas <br>
+                        Special: <span style="color: #2f354b;"> 25% Off  <br>Labour Services</span></h1>
+                    <p>Don’t miss this limited-time offer—book  <br> your service today and save big!</p>
+                    <a href="index.php?page=home#map-section" class="btn btn-primary btn-sm custom-button me-3 mt-4">Our Location
+                        </a>
+                </div>
+            </section>
         </div>
     </div>
-</section>
 
-<section id="appointment-section" class="container-fluid appointment-section">
-    <div class="row align-items-center">
-        <!-- Left Column -->
-        <div class="col-lg-6 col-md-12 text-lg-start px-0 appointment-container"
-             style="background-image: url('/Views/images/appointment-bg-2.png'); background-size: cover;">
-            <div class="p-5">
-                <h1>Make An <br>
-                    <span style="color: #ff8802;">Appointment</span></h1>
-                <p>
-                    "Fill, Book, Drive – Simple Scheduling <br> and Easy Appointment Checking for <br> your Car
-                    Services."
-                </p>
-                <button type="button" class="btn btn-primary btn-sm custom-button me-3 mt-4" data-bs-toggle="modal"
-                        data-bs-target="#bookAppointmentModal">Book Now
-                </button>
-                <button type="button" class="btn btn-primary btn-sm custom-button mt-4" data-bs-toggle="modal"
-                        data-bs-target="#checkAppointmentModal">Check Booking
-                </button>
-            </div>
-        </div>
-        <!-- Right Column -->
-        <div class="col-lg-6 col-md-12 text-center text-lg-start px-0 appointment-container-1"
-             style="background-image: url('/Views/images/appointment-bg-1.png');">
-            <div class="p-5">
-
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
 <section id="services-section" class="container-fluid services-section"
          style="background-image: url('/Views/images/card-background.png');">
     <div class="container-fluid py-5 d-flex align-items-center justify-content-center">
         <div class="text-center">
-            <h1><span style="color:black;">Our</span> Services</h1>
+            <h1><span style="color: #2f354b;">Our</span> Services</h1>
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
                     <div class="card">
@@ -111,6 +101,59 @@ include 'template/header.phtml';
         </div>
     </div>
 </section>
+
+<section id="appointment-section" class="container-fluid appointment-section">
+    <div class="row align-items-center">
+        <!-- Left Column -->
+        <div class="col-lg-6 col-md-12 text-lg-start px-0 appointment-container"
+             style="background-image: url('/Views/images/appointment-bg-2.png'); background-size: cover;">
+            <div class="p-5">
+                <h1>Make An <br>
+                    <span style="color: #ff8802;">Appointment</span></h1>
+                <p>
+                    "Fill, Book, Drive – Simple Scheduling <br> and Easy Appointment Checking for <br> your Car
+                    Services."
+                </p>
+                <button type="button" class="btn btn-primary btn-sm custom-button me-3 mt-4" data-bs-toggle="modal"
+                        data-bs-target="#bookAppointmentModal">Book Now
+                </button>
+                <button type="button" class="btn btn-primary btn-sm custom-button mt-4" data-bs-toggle="modal"
+                        data-bs-target="#checkAppointmentModal">Check Booking
+                </button>
+            </div>
+        </div>
+        <!-- Right Column -->
+        <div class="col-lg-6 col-md-12 text-center text-lg-start px-0 appointment-container-1"
+             style="background-image: url('/Views/images/appointment-bg-1.png');">
+            <div class="p-5">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about-section" class="container-fluid about-section"
+         style="background-image: url('/Views/images/about-background.png');">
+    <div class="container py-5 d-flex align-items-center justify-content-center">
+        <div class="text-center about-container">
+            <h1 style="color: #ff8802;">About<span style="color: #2f354b;"> Us</span></h1>
+            <p>
+                "<span style="font-weight: bold">Lien Yiu Battery & Tyre Sdn Bhd</span> has been a trusted car
+                workshop and auto repair shop in Kuala Lumpur since 1978. We specialize in tyre changing, alignment,
+                balancing, foreman repairs, engine overhauls, spare part installation, oil changes, and battery
+                services.
+            </p>
+            <p>
+                Continental Tyre Malaysia, with over 150 years of industry expertise, is synonymous with premium
+                quality and German technology. Preferred by over 800 car manufacturers, we deliver top-notch service
+                and products. Safety is our utmost priority, ensuring each Continental tyre offers unparalleled
+                grip, stability, and durability. Whether navigating city streets or rugged terrain, our tyres are
+                designed to keep you safe."
+            </p>
+        </div>
+    </div>
+</section>
+
 
 <section id="map-section" class="map-section">
     <iframe

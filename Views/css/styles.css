@@ -115,6 +115,7 @@ footer .footer-section ul li a:hover {
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
+    height: 66.5vh;
 }
 
 .home-container {
@@ -135,6 +136,43 @@ footer .footer-section ul li a:hover {
     color: #fff8e9;
     font-size: 15px;
     margin-bottom: 20px;
+}
+
+.promotion-section-2 {
+    background-position: top left;
+}
+
+.home-promotion-1 {
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 50%;
+    text-align: center;
+}
+
+.home-promotion-1 h1 {
+    color: #c0222a;
+}
+
+.home-promotion-1 p {
+    color: black;
+}
+
+.home-promotion-2 h1 {
+    color:  #ff8802;
+}
+
+.home-promotion-2 p {
+    color: black;
+}
+
+.carousel-control-prev-icon{
+    width: 30px;
+    margin-right: 10px;
+}
+
+.carousel-control-next-icon {
+    width: 30px;
+    margin-left: 10px;
 }
 
 .about-section {
@@ -502,10 +540,29 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .home-section {
         margin-top: 60px;
+        height: 45vh;
     }
 
     .home-container {
         padding-left: 10%;
+    }
+
+    .home-promotion-1 {
+        padding-left: 30%;
+    }
+
+    .promotion-section-2 {
+        background-position: bottom left;
+    }
+
+    .carousel-control-prev-icon{
+        width: 25px;
+        margin-right: 30px;
+    }
+
+    .carousel-control-next-icon {
+        width: 25px;
+        margin-left: 30px;
     }
 
     .about-container {
@@ -617,11 +674,36 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     }
 
     .home-section {
+        height: 36vh;
         margin-top: 50px;
     }
 
     .home-container {
         padding-left: 5%;
+    }
+
+    .promotion-section-1 {
+        background-position: bottom right;
+
+    }
+
+    .home-promotion-1 {
+        padding-left: 25%;
+    }
+
+    .promotion-section-2 {
+        background-position: bottom center;
+
+    }
+
+    .carousel-control-prev-icon{
+        width: 20px;
+        margin-right: 30px;
+    }
+
+    .carousel-control-next-icon {
+        width: 20px;
+        margin-left: 30px;
     }
 
     .about-container {
