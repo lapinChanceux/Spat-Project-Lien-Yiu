@@ -44,7 +44,8 @@ class AppointmentsDataSetModel {
     }
 
     public function getAppointmentId($id) {
-        $sqlQuery = "SELECT * FROM appointments WHERE appointment_id = :id";
+        $sqlQuery = "SELECT appointment_id, customer_name, email, appointment_date, appointment_time FROM appointments
+              WHERE appointment_id = :id";
         $statement = $this->_dbHandle->prepare($sqlQuery);
         $statement->bindParam(':id', $id);
         $statement->execute();
@@ -145,13 +146,15 @@ class AppointmentsDataSetModel {
         $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
     }
-    public function getLatestAppointmentByCarNumber($carNumber) {
+    public function getLatestAppointmentByCarNumber($carNumber,$fullName) {
         $query = "SELECT * FROM appointments 
               WHERE car_number = :carNumber 
+              AND customer_name = :name
               ORDER BY created_at DESC 
               LIMIT 1";
         $stmt = $this->_dbHandle->prepare($query);
         $stmt->bindParam(':carNumber', $carNumber, PDO::PARAM_STR);
+        $stmt->bindParam(':name', $fullName, PDO::PARAM_STR);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

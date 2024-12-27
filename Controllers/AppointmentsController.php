@@ -12,7 +12,6 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 // Get the current date in the desired format
 $adminCurrentDate = date("d F Y");
 
-
 class AppointmentsController
 {
     protected $model;
@@ -52,7 +51,11 @@ class AppointmentsController
 
     public function insertAppointment()
     {
+        session_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (isset($_POST['submitted']) && $_POST['submitted'] == '1') {
+                return;
+            }
             $fullName = isset($_POST['fullName']) ? $_POST['fullName'] : null;
             $carNumber = isset($_POST['carNumber']) ? $_POST['carNumber'] : null;
             $carBrand = isset($_POST['carBrand']) ? $_POST['carBrand'] : null;
@@ -77,11 +80,12 @@ class AppointmentsController
                     return;
                 }
 
+                $_POST['submitted'] = '1';
                 $success = $this->model->insertAppointment($fullName, $carNumber, $carBrand, $carModel, $appointmentDate, $appointmentTime, $phoneNumber, $email, $remark);
 
                 if ($success) {
                     // Send email after successful appointment booking
-                    $this->sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime);
+                    $this->sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime,'insert');
                     echo '<script>
                     document.addEventListener("DOMContentLoaded", function() {
                         var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
@@ -118,8 +122,8 @@ class AppointmentsController
         return $this->model->deleteAppointmentById($appointmentId);
     }
 
-    public function checkBookingAppointment($carNumber){
-        $appointment = $this->model->getLatestAppointmentByCarNumber($carNumber);
+        public function checkBookingAppointment($carNumber,$fullName){
+            $appointment = $this->model->getLatestAppointmentByCarNumber($carNumber,$fullName);
 
         if ($appointment) {
             $appointmentId = htmlspecialchars($appointment['appointment_id']);
@@ -160,26 +164,35 @@ class AppointmentsController
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['appointmentId'])) {
             // Sanitize the appointment ID to prevent injection
             $appointmentId = htmlspecialchars($_POST['appointmentId']);
+            // Fetch appointment details using the appointment ID
+            $appointmentDetails = $this->model->getAppointmentId($appointmentId);
+            if ($appointmentDetails) {
+                // Extract details
+                $email = $appointmentDetails->email;
+                $fullName = $appointmentDetails->customer_name;
+                $appointmentDate = $appointmentDetails->appointment_date;
+                $appointmentTime = $appointmentDetails->appointment_time;
+                // Debugging: Log the appointment ID
+                error_log('Form submitted with appointment ID: ' . $appointmentId);
 
-            // Debugging: Log the appointment ID
-            error_log('Form submitted with appointment ID: ' . $appointmentId);
+                // Call the deleteAppointment method
+                $result = $this->deleteAppointment($appointmentId);
 
-            // Call the deleteAppointment method
-            $result = $this->deleteAppointment($appointmentId);
-
-            // Redirect or show feedback based on the result
-            if ($result) {
-                header('Location: index.php?page=home&status=success');
-                exit;
-            } else {
-                header('Location: index.php?page=home&status=failure');
-                exit;
+                // Redirect or show feedback based on the result
+                if ($result) {
+                    $this->sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime,'cancel');
+                    header('Location: index.php?page=home&status=success');
+                    exit;
+                } else {
+                    header('Location: index.php?page=home&status=failure');
+                    exit;
+                }
             }
         }
     }
 
     // Function to send the appointment email
-    private function sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime)
+    private function sendAppointmentEmail($email, $fullName, $appointmentDate, $appointmentTime, $action)
     {
         require 'vendor/autoload.php';
 
@@ -190,17 +203,25 @@ class AppointmentsController
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
             $mail->SMTPAuth = true;
-            $mail->Username = ''; // Your Gmail address
-            $mail->Password = '';  // Your Gmail App Password
+            $mail->Username = 'lienyiuappointment@gmail.com'; // Your Gmail address
+            $mail->Password = 'aapjnajgchyprrtv';  // Your Gmail App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
             // Email Details
             $mail->setFrom('lienyiuappointment@gmail.com', 'Lien Yiu Customer Support');
             $mail->addAddress($email); // Customer email
-            $mail->Subject = 'Appointment Confirmation - Lien Yiu Battery & Tyre Sdn Bhd';
-            $mail->Body = "Dear $fullName,\n\nYour appointment has been successfully booked for $appointmentDate at $appointmentTime.\n\nThank you for choosing us!\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
-
+            // Customize subject and body based on action
+            if ($action === 'insert') {
+                $mail->Subject = 'Appointment Confirmation - Lien Yiu Battery & Tyre Sdn Bhd';
+                $mail->Body = "Dear $fullName,\n\nYour appointment has been successfully booked for $appointmentDate at $appointmentTime.\n\nThank you for choosing us!\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
+            } elseif ($action === 'cancel') {
+                $mail->Subject = 'Appointment Cancellation - Lien Yiu Battery & Tyre Sdn Bhd';
+                $mail->Body = "Dear $fullName,\n\nYour appointment scheduled for $appointmentDate at $appointmentTime has been successfully canceled.\n\nIf you have any questions, feel free to contact us.\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
+            } else {
+                $mail->Subject = 'Notification - Lien Yiu Battery & Tyre Sdn Bhd';
+                $mail->Body = "Dear $fullName,\n\nThis is a notification regarding your appointment.\n\nThank you for choosing us!\n\nBest Regards,\nAdmin\nLien Yiu Battery & Tyre Sdn Bhd";
+            }
             // Send Email
             $mail->send();
             echo 'Email sent successfully.';

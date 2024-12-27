@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            const bsModal = new bootstrap.Modal(modal);
+            bsModal.hide();
+        });
+
+        window.location.href = 'index.php';
+        return;
+    }
+
     const navLinks = document.querySelectorAll('.nav-link');
 
     // Set the "Home" link as active by default

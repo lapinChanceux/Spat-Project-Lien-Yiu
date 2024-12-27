@@ -14,7 +14,8 @@ if ($page === 'home') {
             $controller->insertAppointment();
         } elseif (isset($_POST['checkBooking'])) {
             $carNumber = $_POST['carNumber'];
-            $controller->checkBookingAppointment($carNumber);
+            $fullName = $_POST['fullName'];
+            $controller->checkBookingAppointment($carNumber,$fullName);
         } elseif (isset($_POST['cancelAppointment'])) {
             $appointmentId = intval($_POST['appointmentId']);
             $controller->cancelAppointment($appointmentId);
