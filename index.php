@@ -32,7 +32,7 @@ if ($page === 'home') {
                 exit;
             } else {
                 $controller->loginFail();
-                header('Location: index.php');
+                include 'Views/home.phtml';
                 exit;
             }
         }
