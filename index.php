@@ -7,6 +7,13 @@ require_once 'Controllers/DisplayServiceController.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
+if (isset($_GET['page']) && $_GET['page'] === 'download-pdf' && isset($_GET['appointment_id'])) {
+    $controller = new AppointmentsController();
+    $appointmentId = $_GET['appointment_id'];
+    $controller->generatePDF($appointmentId); // Generate the PDF for the appointment
+    exit;  // Stop further execution to prevent loading any view after PDF download
+}
+
 if ($page === 'home') {
     $controller = new AppointmentsController();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -73,7 +80,10 @@ if ($page === 'home') {
         if (isset($_POST['updateStatus'])) {
             $appointmentId = $_POST['appointmentId'];
             $status = $_POST['status'];
-            $controller->updateAppointment($appointmentId, $status);
+            $serviceInfo = $_POST['serviceInfo'];
+            $price = $_POST['price'];
+
+            $controller->updateAppointment($appointmentId, $status, $serviceInfo, $price);
             header('Location: index.php?page=admin-dashboard');
             exit;
         }

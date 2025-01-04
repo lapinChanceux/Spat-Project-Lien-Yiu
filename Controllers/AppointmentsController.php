@@ -109,10 +109,18 @@ class AppointmentsController
         require_once('Views/home.phtml');
     }
 
-    public function updateAppointment($appointmentId, $newStatus)
+    public function updateAppointment($appointmentId, $newStatus, $serviceInfo = null, $price = null)
     {
-        return $this->model->updateAppointmentStatus($appointmentId, $newStatus);
+        $result = $this->model->updateAppointmentStatus($appointmentId, $newStatus);
+
+        // If status is 'Completed', insert into the receipt table
+        if ($newStatus === 'Completed' && $serviceInfo !== null && $price !== null) {
+            $this->model->insertReceipt($appointmentId, $serviceInfo, $price);
+        }
+
+        return $result;
     }
+
 
     public function deleteAppointment($appointmentId)
 
@@ -204,7 +212,7 @@ class AppointmentsController
             $mail->Host = 'smtp.gmail.com'; // Gmail SMTP server
             $mail->SMTPAuth = true;
             $mail->Username = 'lienyiuappointment@gmail.com'; // Your Gmail address
-            $mail->Password = 'aapjnajgchyprrtv';  // Your Gmail App Password
+            $mail->Password = 'jmsczrvpnosbctrg';  // Your Gmail App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
@@ -227,8 +235,24 @@ class AppointmentsController
             echo 'Email sent successfully.';
         } catch (Exception $e) {
             echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+    }
+
+    public function generatePDF()
+    {
+        if (isset($_GET['appointment_id']) && is_numeric($_GET['appointment_id'])) {
+            $appointmentId = intval($_GET['appointment_id']);
+
+            // Fetch appointment details from the model
+            $appointmentDetails = $this->model->getAppointmentById($appointmentId);
+
+            // Generate the PDF
+            $this->model->createPDF($appointmentDetails);
+        } else {
+            echo "Invalid request.";
         }
     }
+
 }
 
 

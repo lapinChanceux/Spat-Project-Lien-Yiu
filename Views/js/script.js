@@ -178,11 +178,35 @@ function populateDetailModal(event) {
     const name = button.getAttribute('data-name');
     const carNumber = button.getAttribute('data-car-number');
     const date = button.getAttribute('data-date');
-
+    const time = button.getAttribute('data-time');
+    const carType = button.getAttribute('data-car-type');
     // Populate modal content
     const modalBody = document.querySelector('#detailModal .modal-body .text-center');
-    modalBody.innerHTML = `<p>Hi Admin, <strong>${name}</strong> has an appointment with car place plate 
-            <strong>${carNumber}</strong> on <strong>${date}</strong>.</p>`;
+    modalBody.innerHTML = `
+    <div style="display: table; width: 100%;">
+        <div style="display: table-row;">
+            <div style="display: table-cell; font-weight: bold; text-align: left; padding: 5px;">Name:</div>
+            <div style="display: table-cell; text-align: left; padding: 5px;">${name}</div>
+        </div>
+        <div style="display: table-row;">
+            <div style="display: table-cell; font-weight: bold; text-align: left; padding: 5px;">Car Type:</div>
+            <div style="display: table-cell; text-align: left; padding: 5px;">${carType}</div>
+        </div>
+        <div style="display: table-row;">
+            <div style="display: table-cell; font-weight: bold; text-align: left; padding: 5px;">Car Plate:</div>
+            <div style="display: table-cell; text-align: left; padding: 5px;">${carNumber}</div>
+        </div>
+        <div style="display: table-row;">
+            <div style="display: table-cell; font-weight: bold; text-align: left; padding: 5px;">Time:</div>
+                        <div style="display: table-cell; text-align: left; padding: 5px;">${time}</div>
+
+        </div>
+        <div style="display: table-row;">
+            <div style="display: table-cell; font-weight: bold; text-align: left; padding: 5px;">Date:</div>
+            <div style="display: table-cell; text-align: left; padding: 5px;">${date}</div>
+        </div>
+    </div>`;
+
 }
 
 

@@ -119,7 +119,7 @@ footer .footer-section ul li a:hover {
     background-repeat: no-repeat;
     background-position: top right;
     background-size: cover;
-    height: 66.5vh;
+    height: 75vh;
 }
 
 .home-container {
@@ -215,7 +215,7 @@ footer .footer-section ul li a:hover {
     background-position: bottom;
     background-size: cover;
     padding-left: 8% !important;
-    height: 60vh;
+    height: 70vh;
 }
 
 .appointment-container-1 {
@@ -223,7 +223,7 @@ footer .footer-section ul li a:hover {
     background-position: top;
     background-size: cover;
     padding-left: 8% !important;
-    height: 60vh;
+    height: 70vh;
 }
 
 .appointment-container h1 {
@@ -240,7 +240,7 @@ footer .footer-section ul li a:hover {
 
 .map-section {
     width: auto;
-    height: 60vh;
+    height: 70vh;
     margin: 0;
     padding: 0;
 }
@@ -727,7 +727,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
     }
 
     .home-section {
-        height: 36vh;
+        height: 45vh;
         margin-top: 50px;
     }
 
@@ -773,7 +773,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea, selec
 
     .appointment-container,
     .appointment-container-1 {
-        height: 35vh;
+        height: 42vh;
     }
 
     .services-section .card {

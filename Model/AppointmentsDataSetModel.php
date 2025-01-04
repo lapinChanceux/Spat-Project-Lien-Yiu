@@ -146,6 +146,19 @@ class AppointmentsDataSetModel {
         $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
         return $statement->execute();
     }
+
+    public function insertReceipt($appointmentId, $serviceInfo, $price)
+    {
+        $statement = $this->_dbHandle->prepare("
+        INSERT INTO receipt (appointment_id, service_info, price) 
+        VALUES (:appointment_id, :service_info, :price)
+    ");
+        $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+        $statement->bindParam(':service_info', $serviceInfo, PDO::PARAM_STR);
+        $statement->bindParam(':price', $price, PDO::PARAM_INT);
+        return $statement->execute();
+    }
+
     public function getLatestAppointmentByCarNumber($carNumber,$fullName) {
         $query = "SELECT * FROM appointments 
               WHERE car_number = :carNumber 
@@ -183,6 +196,183 @@ class AppointmentsDataSetModel {
         // Rollback if either operation fails
         $this->_dbHandle->rollBack();
         return false;
+    }
+
+    public function getAppointmentById($appointmentId)
+    {
+        $query = "
+        SELECT 
+            a.appointment_id, 
+            a.customer_name, 
+            a.car_number, 
+            a.car_type, 
+            a.appointment_date, 
+            a.appointment_time, 
+            r.receipt_id,
+            r.service_info,
+            r.price
+        FROM 
+            appointments a
+        LEFT JOIN 
+            receipt r ON a.appointment_id = r.appointment_id
+        WHERE 
+            a.appointment_id = :appointment_id
+    ";
+
+        $statement = $this->_dbHandle->prepare($query);
+        $statement->bindParam(':appointment_id', $appointmentId, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function createPDF($appointmentDetails)
+    {
+        // Include the mPDF library
+        require_once 'vendor/autoload.php';
+
+        $mpdf = new \Mpdf\Mpdf();
+
+        // Create the PDF content
+        $html = "
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .receipt-container {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .receipt-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+        .company-info {
+            text-align: left;
+        }
+        .company-info h4 {
+            margin-bottom: 10px;
+        }
+        .company-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .logo img {
+            max-width: 100px;
+            height: auto;
+        }
+        .receipt-subheader {
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 5px;
+            letter-spacing: 2px;
+        }
+        .customer-info p{
+            margin-bottom: 5px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        .receipt-details {
+            margin: 45px 0 10px;
+        }
+
+        .receipt-details h3 {
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        .receipt-details p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .service-info {
+            min-height: 200px;
+            padding: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .price-details {
+            text-align: right;
+        }
+        .price {
+            display: inline-block;
+            background-color: #f9f9f9; 
+            padding: 5px 10px;
+            border-bottom: 3px solid #000; 
+            color: #333; 
+            margin: 0px;
+        }
+        .price strong {
+            font-weight: bold;
+            margin-right: 25px;
+        }
+        .price span {
+            font-weight: normal; 
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 60px;
+            color: #777;
+        }
+    </style>
+        <div class='receipt-container'>
+        <div class='receipt-header'>
+            <div class='logo'>
+                <img style='max-width: 200px' src='Views/images/continental_logo.png' alt='Company Logo'>
+            </div>        
+            <div class='company-info'>
+                <h4>Continental Lien Yiu Battery & Tyre Sdn Bhd</h4>
+                <p>598 & 598-A, Jalan Jelutong, Jelutong,</p>
+                <p>11600 Jelutong, Pulau Pinang</p>
+            </div>
+
+        </div>
+        <div class='receipt-subheader'>
+            <h1>SERVICE RECEIPT</h1>
+        </div>
+        <div class='receipt-customer-details'>
+            <table style='width: 100%; border-spacing: 0;'>
+                <tr>
+                    <td style='width: 60%; vertical-align: top;'>
+                        <p><strong>Billed To:</strong> {$appointmentDetails['customer_name']}</p>
+                        <p style='margin-top: 20px'>{$appointmentDetails['car_type']}</p>
+                        <p>{$appointmentDetails['car_number']}</p>
+                    </td>
+                    <td style='width: 40%; vertical-align: top;'>
+                        <p><strong>Receipt Id:</strong> {$appointmentDetails['receipt_id']}</p>
+                        <p><strong>Appointment Date:</strong> {$appointmentDetails['appointment_date']}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class='receipt-details'>
+            <h3>SERVICE INFO</h3><hr>
+            <div class='service-info'>
+                <p>{$appointmentDetails['service_info']}</p>
+            </div>
+            <hr>
+        </div>
+        <div class='price-details'>
+            <p class='price'>
+                <strong>Total Price (RM)</strong> <span>{$appointmentDetails['price']}</span>
+            </p>
+        </div>
+        <div class='footer'>
+            Thank you for your appointment!
+        </div>
+    </div>
+    ";
+
+        $mpdf->WriteHTML($html);
+
+        // Output the PDF as a download
+        $mpdf->Output("Service_Receipt_{$appointmentDetails['receipt_id']}.pdf", 'D');
     }
 
 }
