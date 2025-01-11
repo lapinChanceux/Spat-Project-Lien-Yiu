@@ -11,7 +11,8 @@ $jsonAppointments = json_encode($appointments);
             <p><i class="bi bi-calendar2-week"></i>&nbsp;&nbsp;<span><?php echo $adminCurrentDate; ?></span></p>
             <p>Ready to take charge of your day? Keep track<br>of appointment,
                 update statuses, and ensure <br>every thing runs smoothly</p>
-            <a href="index.php?page=admin-dashboard#appointment-section" class="btn btn-primary btn-sm custom-button">View Appointment</a>
+            <a href="index.php?page=admin-dashboard#appointment-section" class="btn btn-primary btn-sm custom-button">View
+                Appointment</a>
         </div>
     </div>
 </section>
@@ -99,9 +100,10 @@ $jsonAppointments = json_encode($appointments);
                     echo "<button type='button' class='btn btn-sm action-button' data-bs-toggle='modal' data-bs-target='#deleteModal' data-appointment-id='{$appointment['appointment_id']}' onclick='setappointment_id(event)'><i class='bi bi-trash3-fill'></i></button>";
                     echo "<button type='button' class='btn btn-sm action-button'" .
                         ($appointment['status'] === 'Completed' ? '' : 'disabled') .
-                        " onclick=\"window.location.href='index.php?page=download-pdf&appointment_id={$appointment['appointment_id']}'\">
-                        <i class='bi bi-file-earmark-arrow-down-fill'></i>
-                          </button>";
+                        " data-bs-toggle='modal' data-bs-target='#downloadPdfModal' 
+       data-appointment-id='{$appointment['appointment_id']}'>
+    <i class='bi bi-file-earmark-arrow-down-fill'></i>
+</button>";
                     echo "</div>";
                     echo "</td>";
                     echo "</tr>";
@@ -125,6 +127,31 @@ $jsonAppointments = json_encode($appointments);
     </div>
 
 </section>
+
+<!-- Modal for PDF Preview and Download -->
+<div class="modal fade" id="downloadPdfModal" tabindex="-1" aria-labelledby="downloadPdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- Use modal-lg for a larger view -->
+        <div class="modal-content">
+            <div class="modal-header text-center ">
+                <h5 class="modal-title w-100 mt-3" id="downloadPdfModalLabel">Receipt Preview & Download</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="receiptFrame">
+                    <iframe id="pdfPreviewFrame" style="width: 100%; height: 500px; border: none;"></iframe>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="button" id="downloadPdfButton" class="btn btn-primary btn-sm custom-button mt-3 mb-3">
+                        Download PDF
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
 
 <!--Edit Modal-->
 <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel"
@@ -166,7 +193,8 @@ $jsonAppointments = json_encode($appointments);
                         </div>
 
                         <div class="text-center mt-4">
-                            <button type="submit" name="updateStatus" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                            <button type="submit" name="updateStatus"
+                                    class="btn btn-primary btn-sm custom-button mt-3 mb-3"
                                     data-bs-dismiss="modal">Confirm
                             </button>
                         </div>
@@ -216,7 +244,8 @@ $jsonAppointments = json_encode($appointments);
                     <!-- Hidden input to hold the appointment ID -->
                     <input type="hidden" name="appointmentId" id="deleteAppointmentId">
                     <div class="text-center mt-4">
-                        <button type="button" name="deleteAppointment" class="btn btn-primary btn-sm custom-button mt-3 mb-3"
+                        <button type="button" name="deleteAppointment"
+                                class="btn btn-primary btn-sm custom-button mt-3 mb-3"
                                 data-bs-dismiss="modal" onclick="submitDeleteForm()">Confirm
                         </button>
                     </div>
@@ -225,7 +254,26 @@ $jsonAppointments = json_encode($appointments);
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var downloadPdfModal = document.getElementById('downloadPdfModal');
+        var pdfPreviewFrame = document.getElementById('pdfPreviewFrame');
+        var downloadPdfButton = document.getElementById('downloadPdfButton');
 
+        downloadPdfModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var appointmentId = button.getAttribute('data-appointment-id');
+
+            // Load the PDF preview inside the modal
+            pdfPreviewFrame.src = 'index.php?page=preview-pdf&appointment_id=' + appointmentId;
+
+            // Set the download URL dynamically
+            downloadPdfButton.onclick = function () {
+                window.location.href = 'index.php?page=download-pdf&appointment_id=' + appointmentId;
+            };
+        });
+    });
+</script>
 
 
 <?php

@@ -253,6 +253,172 @@ class AppointmentsController
         }
     }
 
+    public function previewPDF($appointmentId) {
+        require_once 'vendor/autoload.php';
+        require_once 'Model/AppointmentsDataSetModel.php';
+
+        $appointmentsModel = new AppointmentsDataSetModel();
+
+// Call the method on the instance
+        $appointmentDetails = $appointmentsModel->getAppointmentById($appointmentId);
+        if (!$appointmentDetails) {
+            echo "Invalid appointment ID.";
+            return;
+        }
+
+        // Start output buffering
+        ob_start();
+        ?>
+
+        <div class='receipt-container'>
+            <div class='receipt-header'>
+                <div class='logo'>
+                    <img style='max-width: 200px' src='Views/images/continental_logo.png' alt='Company Logo'>
+                </div>
+                <div class='company-info'>
+                    <h4>Continental Lien Yiu Battery & Tyre Sdn Bhd</h4>
+                    <p>598 & 598-A, Jalan Jelutong, Jelutong,</p>
+                    <p>11600 Jelutong, Pulau Pinang</p>
+                </div>
+            </div>
+            <div class='receipt-subheader'>
+                <h1>SERVICE RECEIPT</h1>
+            </div>
+          <div class='receipt-customer-details'>
+            <table style='width: 100%; border-spacing: 0;'>
+                <tr>
+                    <td style='width: 70%; vertical-align: top; font-size: 12px;'>
+                        <p style='margin: 1px; padding: 1px;'><strong>Billed To:</strong> <?= htmlspecialchars($appointmentDetails['customer_name']) ?></p>
+                        <p style='margin: 1px; padding: 1px;'><?= htmlspecialchars($appointmentDetails['car_type']) ?></p>
+                        <p style='margin: 1px; padding: 1px;'><?= htmlspecialchars($appointmentDetails['car_number']) ?></p>
+
+                    </td>
+                    <td style='width: 30%; vertical-align: top; font-size: 12px;'>
+                        <p style='margin: 1px; padding: 1px;'><strong>Receipt Id:</strong> <?= htmlspecialchars($appointmentDetails['receipt_id']) ?></p>
+                        <p style='margin: 1px; padding: 1px;'><strong>Appointment Date:</strong> <?= htmlspecialchars($appointmentDetails['appointment_date']) ?></p>
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+            <div class='receipt-details'>
+                <h3>SERVICE INFO</h3><hr style="margin: 10px 0;">
+                <div class='service-info'>
+                    <p><?= nl2br(htmlspecialchars($appointmentDetails['service_info'])) ?></p>
+                </div>
+                <hr style="margin: 10px 0;">
+            </div>
+
+
+            <div class='price-details'>
+                <p class='price'>
+                    <strong>Total Price (RM)</strong> <span><?= htmlspecialchars($appointmentDetails['price']) ?></span>
+                </p>
+            </div>
+            <div class='footer'>
+                Thank you for your appointment!
+            </div>
+        </div>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            .receipt-container {
+                padding: 20px;
+                max-width: 900px;
+                margin: 0 auto;
+                background-color: #fff;
+            }
+            .receipt-header {
+                padding: 10px 0;
+            }
+            .company-info {
+                text-align: left;
+            }
+            .company-info h4 {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            .company-info p {
+                margin: 0;
+                font-size: 12px;
+                color: #555;
+            }
+            .logo img {
+                max-width: 100px;
+                height: auto;
+            }
+            .receipt-subheader {
+                text-align: center;
+                padding-top: 10px;
+                padding-bottom: 5px;
+                letter-spacing: 2px;
+            }
+
+            .receipt-subheader h1{
+                font-size: 20px;
+            }
+
+            .customer-info p{
+                margin-bottom: 5px;
+                margin-top: 5px;
+                font-size: 12px;
+            }
+
+            .receipt-details {
+                margin: 45px 0 10px;
+            }
+
+            .receipt-details h3 {
+                font-size: 14px;
+                letter-spacing: 2px;
+                margin-bottom: 5px;
+            }
+            .receipt-details p {
+                margin: 5px 0;
+                font-size: 12px;
+            }
+            .service-info {
+
+                padding: 10px 0;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+            .price-details {
+                text-align: right;
+            }
+            .price {
+                font-size: 12px;
+                margin: 20px 0;
+                background-color: #f9f9f9;
+                padding: 5px 10px;
+                border-bottom: 3px solid #000;
+            }
+            .price strong {
+                font-weight: bold;
+                margin-right: 25px;
+            }
+            .price span {
+                font-weight: normal;
+            }
+            .footer {
+                text-align: center;
+                font-size: 12px;
+                margin-top: 40px;
+                color: #777;
+            }
+        </style>
+
+        <?php
+        // Capture the buffer content and return it
+        $html = ob_get_clean();
+
+        echo $html;
+    }
+
+
+
 }
 
 

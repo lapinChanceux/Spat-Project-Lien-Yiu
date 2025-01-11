@@ -336,6 +336,7 @@ class AppointmentsDataSetModel {
         <div class='receipt-subheader'>
             <h1>SERVICE RECEIPT</h1>
         </div>
+        
         <div class='receipt-customer-details'>
             <table style='width: 100%; border-spacing: 0;'>
                 <tr>

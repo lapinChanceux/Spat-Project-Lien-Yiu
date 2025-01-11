@@ -2,11 +2,20 @@
 
 require_once('Controllers/AppointmentsController.php');
 require_once('Controllers/LoginController.php');
-require_once 'Controllers/VisitorController.php';
-require_once 'Controllers/DisplayServiceController.php';
+require_once('Controllers/VisitorController.php');
+require_once('Controllers/DisplayServiceController.php');
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
+// Handle PDF preview request
+if (isset($_GET['page']) && $_GET['page'] === 'preview-pdf' && isset($_GET['appointment_id'])) {
+    $controller = new AppointmentsController();
+    $appointmentId = $_GET['appointment_id'];
+    $controller->previewPDF($appointmentId); // Generate the PDF preview
+    exit;  // Stop further execution to prevent loading any view after PDF preview
+}
+
+// Handle download PDF request
 if (isset($_GET['page']) && $_GET['page'] === 'download-pdf' && isset($_GET['appointment_id'])) {
     $controller = new AppointmentsController();
     $appointmentId = $_GET['appointment_id'];
@@ -14,6 +23,7 @@ if (isset($_GET['page']) && $_GET['page'] === 'download-pdf' && isset($_GET['app
     exit;  // Stop further execution to prevent loading any view after PDF download
 }
 
+// Routing for home page
 if ($page === 'home') {
     $controller = new AppointmentsController();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,7 +32,7 @@ if ($page === 'home') {
         } elseif (isset($_POST['checkBooking'])) {
             $carNumber = $_POST['carNumber'];
             $fullName = $_POST['fullName'];
-            $controller->checkBookingAppointment($carNumber,$fullName);
+            $controller->checkBookingAppointment($carNumber, $fullName);
         } elseif (isset($_POST['cancelAppointment'])) {
             $appointmentId = intval($_POST['appointmentId']);
             $controller->cancelAppointment($appointmentId);
@@ -65,6 +75,8 @@ if ($page === 'home') {
 
     $carBrands = $controller->getCarBrands();
     include 'Views/home.phtml';
+
+// Routing for admin dashboard
 } elseif ($page === 'admin-dashboard') {
     $controller = new AppointmentsController();
 
@@ -74,7 +86,6 @@ if ($page === 'home') {
     $pendingCount = $data['pendingCount'];
     $onServiceCount = $data['onServiceCount'];
     $completedCount = $data['completedCount'];
-
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['updateStatus'])) {
@@ -96,8 +107,10 @@ if ($page === 'home') {
         header('Location: index.php');
         exit;
     }
+
     include 'Views/admin-dashboard.phtml';
 
+// Routing for service progress page
 } elseif ($page === 'service-progress') {
     $controller = new DisplayServiceController();
     $serviceData = $controller->getServiceData();
@@ -109,13 +122,16 @@ if ($page === 'home') {
     }
     include 'Views/service-progress.phtml';
 
+// Routing for logout
 } elseif ($page === 'logout') {
     session_unset();
     session_destroy();
     header('Location: index.php');
     exit;
+
+// Default 404 page not found
 } else {
     echo "Page not found.";
 }
 
-
+?>
