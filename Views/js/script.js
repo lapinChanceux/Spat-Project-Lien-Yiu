@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            const bsModal = new bootstrap.Modal(modal);
-            bsModal.hide();
+    if (window.performance.getEntriesByType("navigation")[0]?.type === "reload") {
+        document.querySelectorAll('.modal.show').forEach(modal => {
+            const bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) {
+                bsModal.hide();
+            }
         });
-
-        window.location.href = 'index.php';
-        return;
+        window.location.replace(window.location.href);
     }
 
     const navLinks = document.querySelectorAll('.nav-link');
