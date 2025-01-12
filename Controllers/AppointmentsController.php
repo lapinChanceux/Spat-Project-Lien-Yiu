@@ -159,7 +159,7 @@ class AppointmentsController
         document.addEventListener("DOMContentLoaded", function() {
             var resultModal = new bootstrap.Modal(document.getElementById("resultModal"));
             document.getElementById("resultModalLabel").innerText = "";
-            document.getElementById("resultModalBody").innerHTML = "Failed to book the appointment. Please try again.";
+            document.getElementById("resultModalBody").innerHTML = "No appointment found for the car number.";
             resultModal.show();
         });
     </script>';
