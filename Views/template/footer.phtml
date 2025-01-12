@@ -46,6 +46,14 @@
     </div>
 </footer>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var confirmationModal = document.getElementById("confirmationModal");
+
+        confirmationModal.addEventListener("hidden.bs.modal", function () {
+            window.location.href = "index.php"; // Redirect to index.php
+        });
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
         const carBrandSelect = document.getElementById('carBrand');
         const carModelSelect = document.getElementById('carModel');
@@ -337,6 +345,10 @@
             document.getElementById('price').removeAttribute('required');
         }
     });
+
+
+
+
 
 
 </script>
